@@ -1,0 +1,50 @@
+# Example recipe for the wave_signal engine (README Section 6, #9).
+#
+# NOTE: this engine exposes the "duration" param as `wave_duration` on the
+# Scene (see engines/wave_signal.py) — Manim's own Scene.__init__ claims
+# `self.duration` for internal bookkeeping, so `duration` can't be used as
+# a Scene attribute name. The recipe-facing param name stays `duration`
+# here per README Section 5's schema; an orchestrator mapping this
+# category's params onto the Scene must translate duration -> wave_duration.
+
+id: fourier-square-wave-001
+category: wave_signal
+template_version: 1
+
+title: "Simple Waves, Complex Shapes"
+subtitle: null
+caption: "Add enough waves, get any shape"
+fb_post_caption: "Nine sine waves. One square wave. \U0001F4C8 #math #fourier"
+
+background: "#000000"
+color_palette: ["#FFEB3B", "#666666"]
+font: "Helvetica"
+font_size_title: 48
+font_size_caption: 32
+accent_color: "#FFFFFF"
+
+duration: auto
+intro_hold: 1.0
+outro_hold: 1.5
+fps: 60
+
+music_track: "assets/music/track_013.mp3"
+music_start_offset: 2.0
+music_volume: 0.5
+sfx_enabled: false
+sfx_volume: 0.8
+loop_music: true
+
+resolution: "1080x1920"
+safe_zone_top: 0.06
+safe_zone_bottom: 0.22
+safe_zone_side: 0.16
+output_format: "h264_mp4"
+
+date_created: "2026-08-23"
+status: draft
+
+params:
+  superposition_type: "fourier_square_wave"
+  wave_components: null
+  duration: 6.0
