@@ -238,9 +238,12 @@ class PuzzleBacktrackingReel(ReelScene):
     puzzle_type = "tower_of_hanoi"
     size = 5
     seed = 0
+    # Recipe-overridable — see README Section 5's title/caption fields; None means "use this engine's own default".
+    title_text = None
+    caption_text = None
 
     def construct(self):
-        self.set_title("Solved, One Step At A Time")
+        self.set_title(self.title_text or "Solved, One Step At A Time")
 
         data = build_puzzle(self.puzzle_type, self.size, self.seed)
         if data["kind"] == "hanoi":
@@ -292,7 +295,7 @@ class PuzzleBacktrackingReel(ReelScene):
         frame_tracker.set_value(len(frames) - 1)
         self.wait(0.3)
 
-        self.set_caption(f"{num_disks} disks, {len(frames) - 1} moves. Every one necessary.")
+        self.set_caption(self.caption_text or f"{num_disks} disks, {len(frames) - 1} moves. Every one necessary.")
 
     def _construct_n_queens(self, data):
         frames, n = data["frames"], data["n"]
@@ -345,7 +348,7 @@ class PuzzleBacktrackingReel(ReelScene):
         frame_tracker.set_value(len(frames) - 1)
         self.wait(0.3)
 
-        self.set_caption(f"{n} queens, zero conflicts. Backtracking found it.")
+        self.set_caption(self.caption_text or f"{n} queens, zero conflicts. Backtracking found it.")
 
     def _construct_rubiks_cube(self, data):
         frames = data["frames"]
@@ -390,4 +393,4 @@ class PuzzleBacktrackingReel(ReelScene):
         frame_tracker.set_value(len(frames) - 1)
         self.wait(0.3)
 
-        self.set_caption("Every scramble has a way back")
+        self.set_caption(self.caption_text or "Every scramble has a way back")

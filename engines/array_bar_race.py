@@ -145,9 +145,12 @@ class ArrayBarRaceReel(ReelScene):
     data_series = [5, 3, 8, 1, 9, 2, 7]
     labels = None
     speed = 1.0
+    # Recipe-overridable — see README Section 5's title/caption fields; None means "use this engine's own default".
+    title_text = None
+    caption_text = None
 
     def construct(self):
-        self.set_title("Who Sorts Fastest?")
+        self.set_title(self.title_text or "Who Sorts Fastest?")
 
         frames, labels = build_race(self.race_type, self.data_series, self.labels, self.speed)
         num_rows = len(frames[0])
@@ -210,4 +213,4 @@ class ArrayBarRaceReel(ReelScene):
         frame_tracker.set_value(len(frames) - 1)
         self.wait(0.3)
 
-        self.set_caption("Every swap, one step closer")
+        self.set_caption(self.caption_text or "Every swap, one step closer")

@@ -163,9 +163,12 @@ class TessellationGrowthReel(ReelScene):
     tile_type = "hex_tiling"
     symmetry_group = 6
     fill_target = 0.9
+    # Recipe-overridable — see README Section 5's title/caption fields; None means "use this engine's own default".
+    title_text = None
+    caption_text = None
 
     def construct(self):
-        self.set_title("One Shape, Endless Pattern")
+        self.set_title(self.title_text or "One Shape, Endless Pattern")
 
         shapes = build_tessellation(self.tile_type, self.symmetry_group, self.fill_target)
         zone = self.zones.content_zone
@@ -215,4 +218,4 @@ class TessellationGrowthReel(ReelScene):
         for poly in polygons:
             poly.clear_updaters()
 
-        self.set_caption("The rule never changes, the pattern never ends")
+        self.set_caption(self.caption_text or "The rule never changes, the pattern never ends")

@@ -147,6 +147,9 @@ class ProofWithoutWordsReel(ReelScene):
     """`params`: proof_type (README Section 6, #16)."""
 
     proof_type = "pythagorean_rearrangement"
+    # Recipe-overridable — see README Section 5's title/caption fields; None means "use this engine's own default".
+    title_text = None
+    caption_text = None
 
     def construct(self):
         data = build_proof(self.proof_type)
@@ -157,7 +160,7 @@ class ProofWithoutWordsReel(ReelScene):
             self._construct_circle_unwrap(data)
 
     def _construct_pythagorean(self, data):
-        self.set_title("A Square Proof")
+        self.set_title(self.title_text or "A Square Proof")
         zone = self.zones.content_zone
 
         a, b, c = data["a"], data["b"], data["c"]
@@ -198,10 +201,10 @@ class ProofWithoutWordsReel(ReelScene):
         )
         self.wait(1.5)
 
-        self.set_caption(f"{a:.0f}² + {b:.0f}² = {c:.0f}². Same square, rearranged.")
+        self.set_caption(self.caption_text or f"{a:.0f}² + {b:.0f}² = {c:.0f}². Same square, rearranged.")
 
     def _construct_circle_unwrap(self, data):
-        self.set_title("Unwrapping a Circle")
+        self.set_title(self.title_text or "Unwrapping a Circle")
         zone = self.zones.content_zone
         radius, strips = data["radius"], data["strips"]
 
@@ -241,4 +244,4 @@ class ProofWithoutWordsReel(ReelScene):
         self.play(Transform(rings, strip_rects), run_time=3.0)
         self.wait(1.0)
 
-        self.set_caption(f"½ × 2πr × r = πr² ≈ {np.pi * radius ** 2:.1f}")
+        self.set_caption(self.caption_text or f"½ × 2πr × r = πr² ≈ {np.pi * radius ** 2:.1f}")

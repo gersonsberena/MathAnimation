@@ -103,12 +103,15 @@ class RecursiveLSystemReel(ReelScene):
     rule_type = "binary_branch"
     depth = 8
     branch_angle = 25.0
+    # Recipe-overridable — see README Section 5's title/caption fields; None means "use this engine's own default".
+    title_text = None
+    caption_text = None
 
     def construct(self):
-        self.set_title("One Rule. Infinite Branches.")
+        self.set_title(self.title_text or "One Rule. Infinite Branches.")
 
         shape = build_shape(self.rule_type, self.depth, self.branch_angle)
         self.fit_to_zone(shape, self.zones.content_zone)
         self.play(Create(shape), run_time=4)
 
-        self.set_caption("Every branch splits — and leans one way")
+        self.set_caption(self.caption_text or "Every branch splits — and leans one way")

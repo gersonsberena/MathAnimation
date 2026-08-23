@@ -136,9 +136,12 @@ class WaveSignalReel(ReelScene):
     superposition_type = "fourier_square_wave"
     wave_components = None
     wave_duration = 6.0
+    # Recipe-overridable — see README Section 5's title/caption fields; None means "use this engine's own default".
+    title_text = None
+    caption_text = None
 
     def construct(self):
-        self.set_title("Simple Waves, Complex Shapes")
+        self.set_title(self.title_text or "Simple Waves, Complex Shapes")
 
         data = build_waveform(self.superposition_type, self.wave_components, self.wave_duration)
         x, y_frames = data["x"], data["y_frames"]
@@ -171,4 +174,4 @@ class WaveSignalReel(ReelScene):
         frame_tracker.set_value(num_frames - 1)
         self.wait(0.3)
 
-        self.set_caption("Add enough waves, get any shape")
+        self.set_caption(self.caption_text or "Add enough waves, get any shape")

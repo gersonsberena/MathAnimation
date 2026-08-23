@@ -243,9 +243,12 @@ class PathfindingMazeReel(ReelScene):
     maze_source = "random_dfs_maze"
     algorithm = "a_star"
     seed = 0
+    # Recipe-overridable — see README Section 5's title/caption fields; None means "use this engine's own default".
+    title_text = None
+    caption_text = None
 
     def construct(self):
-        self.set_title("Finding The Way Out")
+        self.set_title(self.title_text or "Finding The Way Out")
 
         data = build_maze_solution(self.maze_source, self.algorithm, self.seed)
         rows, cols = data["rows"], data["cols"]
@@ -333,7 +336,7 @@ class PathfindingMazeReel(ReelScene):
                 self.add(best_line)
                 self.wait(0.5)
 
-        self.set_caption("The path was always there")
+        self.set_caption(self.caption_text or "The path was always there")
 
     @staticmethod
     def _path_line(path, cell_center):

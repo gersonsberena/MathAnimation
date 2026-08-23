@@ -225,9 +225,12 @@ class ParticlePhysicsSimReel(ReelScene):
     sim_duration = 4.0
     seed = 0
     fps = 30
+    # Recipe-overridable — see README Section 5's title/caption fields; None means "use this engine's own default".
+    title_text = None
+    caption_text = None
 
     def construct(self):
-        self.set_title("Two Arms, Infinite Chaos.")
+        self.set_title(self.title_text or "Two Arms, Infinite Chaos.")
 
         trajectory = build_trajectories(
             self.sim_type, self.num_bodies, self.initial_conditions, self.sim_duration, self.fps, self.seed
@@ -286,4 +289,4 @@ class ParticlePhysicsSimReel(ReelScene):
         for dot in dots:
             dot.clear_updaters()
 
-        self.set_caption("Same equations. Wildly different paths.")
+        self.set_caption(self.caption_text or "Same equations. Wildly different paths.")

@@ -194,9 +194,12 @@ class GameTheoryReel(ReelScene):
     strategies = ["always_cooperate", "always_defect", "tit_for_tat", "grim_trigger"]
     num_rounds = 50
     population_size = 100
+    # Recipe-overridable — see README Section 5's title/caption fields; None means "use this engine's own default".
+    title_text = None
+    caption_text = None
 
     def construct(self):
-        self.set_title("Only The Fittest Strategy Survives")
+        self.set_title(self.title_text or "Only The Fittest Strategy Survives")
 
         data = build_tournament(self.strategies, self.num_rounds, self.population_size)
         history = data["population_history"]
@@ -248,4 +251,4 @@ class GameTheoryReel(ReelScene):
         frame_tracker.set_value(len(history) - 1)
         self.wait(0.3)
 
-        self.set_caption("Cooperation isn't just nice. It's strategy.")
+        self.set_caption(self.caption_text or "Cooperation isn't just nice. It's strategy.")

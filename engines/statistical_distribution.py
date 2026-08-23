@@ -94,9 +94,12 @@ class StatisticalDistributionReel(ReelScene):
     distribution_type = "galton_board"
     num_trials = 1000
     seed = 0
+    # Recipe-overridable — see README Section 5's title/caption fields; None means "use this engine's own default".
+    title_text = None
+    caption_text = None
 
     def construct(self):
-        self.set_title("Random Becomes Predictable")
+        self.set_title(self.title_text or "Random Becomes Predictable")
 
         bin_indices, num_bins = build_histogram_trials(self.distribution_type, self.num_trials, self.seed)
 
@@ -137,4 +140,4 @@ class StatisticalDistributionReel(ReelScene):
         frame_tracker.set_value(num_checkpoints - 1)
         self.wait(0.3)
 
-        self.set_caption("Thousands of trials, one shape")
+        self.set_caption(self.caption_text or "Thousands of trials, one shape")

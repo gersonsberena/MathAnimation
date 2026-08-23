@@ -116,9 +116,12 @@ class StrangeAttractorChaosReel(ReelScene):
     system_type = "lorenz"
     initial_conditions = None
     iterations = 2000
+    # Recipe-overridable — see README Section 5's title/caption fields; None means "use this engine's own default".
+    title_text = None
+    caption_text = None
 
     def construct(self):
-        self.set_title("Order Hidden in Chaos")
+        self.set_title(self.title_text or "Order Hidden in Chaos")
 
         data = build_attractor(self.system_type, self.initial_conditions, self.iterations)
         zone = self.zones.content_zone
@@ -128,7 +131,7 @@ class StrangeAttractorChaosReel(ReelScene):
         else:
             self._construct_raster(data["image"], zone)
 
-        self.set_caption("Simple rule. Never repeats.")
+        self.set_caption(self.caption_text or "Simple rule. Never repeats.")
 
     def _construct_trajectory(self, points, zone):
         num_frames = points.shape[0]

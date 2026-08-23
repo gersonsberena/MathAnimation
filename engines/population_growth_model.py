@@ -160,9 +160,12 @@ class PopulationGrowthModelReel(ReelScene):
     initial_populations = {"prey": 40.0, "predator": 9.0}
     rate_constants = {"alpha": 1.1, "beta": 0.4, "delta": 0.1, "gamma": 0.4}
     growth_duration = 25.0
+    # Recipe-overridable — see README Section 5's title/caption fields; None means "use this engine's own default".
+    title_text = None
+    caption_text = None
 
     def construct(self):
-        self.set_title("The Rhythm Of A Population")
+        self.set_title(self.title_text or "The Rhythm Of A Population")
 
         data = build_population_model(self.model_type, self.initial_populations, self.rate_constants, self.growth_duration)
 
@@ -215,4 +218,4 @@ class PopulationGrowthModelReel(ReelScene):
         frame_tracker.set_value(len(t) - 1)
         self.wait(0.3)
 
-        self.set_caption(caption)
+        self.set_caption(self.caption_text or caption)

@@ -138,9 +138,12 @@ class NumberPatternReel(ReelScene):
     sequence_type = "pascals_triangle_mod2"
     length = 128
     mapping_rule = "binary"
+    # Recipe-overridable — see README Section 5's title/caption fields; None means "use this engine's own default".
+    title_text = None
+    caption_text = None
 
     def construct(self):
-        self.set_title("Numbers Hide a Pattern")
+        self.set_title(self.title_text or "Numbers Hide a Pattern")
 
         data = build_number_pattern(self.sequence_type, self.length, self.mapping_rule)
         zone = self.zones.content_zone
@@ -152,7 +155,7 @@ class NumberPatternReel(ReelScene):
         else:
             self._construct_circle_lines(data["points"], data["lines"], zone)
 
-        self.set_caption("Simple numbers. Hidden structure.")
+        self.set_caption(self.caption_text or "Simple numbers. Hidden structure.")
 
     def _construct_raster(self, full_image, zone):
         num_rows = full_image.shape[0]

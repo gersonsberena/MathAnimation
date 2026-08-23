@@ -209,9 +209,12 @@ class GridCellColoringReel(ReelScene):
     grid_size = 101
     zoom_level = 1.0
     color_map = "grayscale"
+    # Recipe-overridable — see README Section 5's title/caption fields; None means "use this engine's own default".
+    title_text = None
+    caption_text = None
 
     def construct(self):
-        self.set_title("Hidden Order in Chaos")
+        self.set_title(self.title_text or "Hidden Order in Chaos")
 
         pixels = build_grid_image(self.rule_type, self.grid_size, self.zoom_level, self.color_map)
         image = ImageMobject(pixels)
@@ -223,4 +226,4 @@ class GridCellColoringReel(ReelScene):
 
         self.play(FadeIn(image), run_time=1.5)
 
-        self.set_caption("Every cell follows one rule")
+        self.set_caption(self.caption_text or "Every cell follows one rule")

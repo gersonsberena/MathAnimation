@@ -153,9 +153,12 @@ class MonteCarloProbabilityReel(ReelScene):
     num_trials = 400
     seed = 0
     target_value = 0  # unused for monty_hall
+    # Recipe-overridable — see README Section 5's title/caption fields; None means "use this engine's own default".
+    title_text = None
+    caption_text = None
 
     def construct(self):
-        self.set_title("Does It Converge?")
+        self.set_title(self.title_text or "Does It Converge?")
 
         series, theoretical = build_convergence(self.trial_type, self.num_trials, self.seed, self.target_value)
         names = list(series.keys())
@@ -224,4 +227,4 @@ class MonteCarloProbabilityReel(ReelScene):
         frame_tracker.set_value(len(checkpoint_indices) - 1)
         self.wait(0.3)
 
-        self.set_caption("More trials, closer to the truth")
+        self.set_caption(self.caption_text or "More trials, closer to the truth")

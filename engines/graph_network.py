@@ -225,9 +225,12 @@ class GraphNetworkReel(ReelScene):
     algorithm = "dijkstra"
     start_node = 0
     end_node = NUM_NODES - 1
+    # Recipe-overridable — see README Section 5's title/caption fields; None means "use this engine's own default".
+    title_text = None
+    caption_text = None
 
     def construct(self):
-        self.set_title("Shortest Path, Step by Step")
+        self.set_title(self.title_text or "Shortest Path, Step by Step")
 
         data = build_traversal(self.graph_source, self.algorithm, self.start_node, self.end_node)
         positions, edges = data["positions"], data["edges"]
@@ -291,4 +294,4 @@ class GraphNetworkReel(ReelScene):
         node_group.clear_updaters()
         update_nodes(node_group)  # apply the final state once more after clearing the updater
 
-        self.set_caption("One step at a time")
+        self.set_caption(self.caption_text or "One step at a time")

@@ -217,20 +217,23 @@ class TreeDataStructureReel(ReelScene):
 
     structure_type = "bst_self_balancing"
     operations_sequence = [50, 30, 70, 20, 40, 60, 80, 10, 90, 25]
+    # Recipe-overridable — see README Section 5's title/caption fields; None means "use this engine's own default".
+    title_text = None
+    caption_text = None
 
     def construct(self):
         data = build_tree_structure(self.structure_type, self.operations_sequence)
 
         if data["kind"] == "tree":
-            self.set_title("Watch It Rebalance")
+            self.set_title(self.title_text or "Watch It Rebalance")
             self._construct_tree(data)
             caption = "Never more than log(n) deep. Never by accident."
         else:
-            self.set_title("Where Collisions Happen")
+            self.set_title(self.title_text or "Where Collisions Happen")
             self._construct_hash_table(data)
             caption = "Different keys, same address. That's a collision."
 
-        self.set_caption(caption)
+        self.set_caption(self.caption_text or caption)
 
     def _construct_tree(self, data):
         frames = data["frames"]

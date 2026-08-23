@@ -162,9 +162,12 @@ class GeometricTransformationReel(ReelScene):
         {"type": "scale", "factor": 1.4},
         {"type": "rotate", "angle": 144.0},
     ]
+    # Recipe-overridable — see README Section 5's title/caption fields; None means "use this engine's own default".
+    title_text = None
+    caption_text = None
 
     def construct(self):
-        self.set_title("What Stays The Same?")
+        self.set_title(self.title_text or "What Stays The Same?")
 
         data = build_geometric_transformation(self.shape_source, self.transform_sequence)
         frames, areas, transform_sequence = data["frames"], data["areas"], data["transform_sequence"]
@@ -200,4 +203,4 @@ class GeometricTransformationReel(ReelScene):
             self.wait(0.4)
 
         self.wait(0.3)
-        self.set_caption("Rigid motions never change the area. Only scaling does.")
+        self.set_caption(self.caption_text or "Rigid motions never change the area. Only scaling does.")
