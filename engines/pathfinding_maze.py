@@ -301,6 +301,8 @@ class PathfindingMazeReel(ReelScene):
 
             cell_squares.add_updater(update_cells)
             self.play(frame_tracker.animate.set_value(num_steps), run_time=5.0, rate_func=linear)
+            frame_tracker.set_value(num_steps)
+            self.wait(0.3)
         else:
             path_history, best_path = data["path_history"], data["best_path"] or []
             num_ants = len(path_history)
@@ -316,6 +318,8 @@ class PathfindingMazeReel(ReelScene):
             trail_lines.add_updater(update_trails)
             self.add(trail_lines)
             self.play(frame_tracker.animate.set_value(num_ants), run_time=4.0, rate_func=linear)
+            frame_tracker.set_value(num_ants)
+            self.wait(0.3)
             trail_lines.clear_updaters()
 
             if best_path:

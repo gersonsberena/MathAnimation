@@ -221,5 +221,7 @@ class MonteCarloProbabilityReel(ReelScene):
             run_time=6.0,
             rate_func=linear,
         )
+        frame_tracker.set_value(len(checkpoint_indices) - 1)
+        self.wait(0.3)
 
         self.set_caption("More trials, closer to the truth")

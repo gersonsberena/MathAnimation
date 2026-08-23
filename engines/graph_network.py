@@ -286,6 +286,8 @@ class GraphNetworkReel(ReelScene):
             node_group.add_updater(update_nodes)
 
         self.play(frame_tracker.animate.set_value(num_steps), run_time=5.0, rate_func=linear)
+        frame_tracker.set_value(num_steps)
+        self.wait(0.3)
         node_group.clear_updaters()
         update_nodes(node_group)  # apply the final state once more after clearing the updater
 

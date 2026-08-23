@@ -245,5 +245,7 @@ class GameTheoryReel(ReelScene):
 
         self.add(bars, value_texts, row_labels)
         self.play(frame_tracker.animate.set_value(len(history) - 1), run_time=5.0, rate_func=linear)
+        frame_tracker.set_value(len(history) - 1)
+        self.wait(0.3)
 
         self.set_caption("Cooperation isn't just nice. It's strategy.")

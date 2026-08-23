@@ -172,6 +172,8 @@ class NumberPatternReel(ReelScene):
         image = always_redraw(make_image)
         self.add(image)
         self.play(frame_tracker.animate.set_value(num_rows), run_time=5.0, rate_func=linear)
+        frame_tracker.set_value(num_rows)
+        self.wait(0.3)
 
     def _construct_points(self, positions, colors, zone):
         xs = [p[0] for p in positions]
@@ -201,6 +203,8 @@ class NumberPatternReel(ReelScene):
 
         self.add(dots)
         self.play(frame_tracker.animate.set_value(len(positions)), run_time=5.0, rate_func=linear)
+        frame_tracker.set_value(len(positions))
+        self.wait(0.3)
         for dot in dots:
             dot.clear_updaters()
 
@@ -231,5 +235,7 @@ class NumberPatternReel(ReelScene):
 
         self.add(segments)
         self.play(frame_tracker.animate.set_value(len(lines)), run_time=5.0, rate_func=linear)
+        frame_tracker.set_value(len(lines))
+        self.wait(0.3)
         for segment in segments:
             segment.clear_updaters()

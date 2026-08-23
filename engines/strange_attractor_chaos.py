@@ -160,6 +160,8 @@ class StrangeAttractorChaosReel(ReelScene):
 
         self.add(trail, dot)
         self.play(frame_tracker.animate.set_value(num_frames - 1), run_time=6.0, rate_func=linear)
+        frame_tracker.set_value(num_frames - 1)
+        self.wait(0.3)
         dot.clear_updaters()
 
     def _construct_raster(self, full_image, zone):
@@ -180,3 +182,5 @@ class StrangeAttractorChaosReel(ReelScene):
         image = always_redraw(make_image)
         self.add(image)
         self.play(frame_tracker.animate.set_value(grid_size), run_time=5.0, rate_func=linear)
+        frame_tracker.set_value(grid_size)
+        self.wait(0.3)

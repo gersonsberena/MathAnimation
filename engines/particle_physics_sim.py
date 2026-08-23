@@ -280,6 +280,8 @@ class ParticlePhysicsSimReel(ReelScene):
 
         self.add(trails, dots)
         self.play(frame_tracker.animate.set_value(num_frames - 1), run_time=self.sim_duration, rate_func=linear)
+        frame_tracker.set_value(num_frames - 1)
+        self.wait(0.3)
 
         for dot in dots:
             dot.clear_updaters()

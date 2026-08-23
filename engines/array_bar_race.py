@@ -207,5 +207,7 @@ class ArrayBarRaceReel(ReelScene):
             run_time=total_duration,
             rate_func=linear,
         )
+        frame_tracker.set_value(len(frames) - 1)
+        self.wait(0.3)
 
         self.set_caption("Every swap, one step closer")

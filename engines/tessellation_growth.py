@@ -210,6 +210,8 @@ class TessellationGrowthReel(ReelScene):
 
         self.add(polygons)
         self.play(angle_tracker.animate.set_value(2 * np.pi), run_time=5.0, rate_func=linear)
+        angle_tracker.set_value(2 * np.pi)
+        self.wait(0.3)
         for poly in polygons:
             poly.clear_updaters()
 

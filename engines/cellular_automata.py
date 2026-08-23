@@ -202,5 +202,7 @@ class CellularAutomataReel(ReelScene):
         self.add(image)
 
         self.play(frame_tracker.animate.set_value(num_frames - 1), run_time=5.0, rate_func=linear)
+        frame_tracker.set_value(num_frames - 1)
+        self.wait(0.3)
 
         self.set_caption("The rule never changes")

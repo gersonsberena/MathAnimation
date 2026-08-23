@@ -168,5 +168,7 @@ class WaveSignalReel(ReelScene):
         self.add(axes, curve)
 
         self.play(frame_tracker.animate.set_value(num_frames - 1), run_time=self.wave_duration, rate_func=linear)
+        frame_tracker.set_value(num_frames - 1)
+        self.wait(0.3)
 
         self.set_caption("Add enough waves, get any shape")
