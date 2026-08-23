@@ -267,7 +267,23 @@ are drafted, rather than assuming they must stay separate.
 - [ ] Tested at min/max declared param bounds, not just one "nice" example
 - [ ] Rendered once with `debug_guides = True` to visually confirm no
       overlap with safe-zone rectangles before being marked done
+- [ ] Scene attribute names checked against Manim's own `Scene`
+      attributes (see the `duration` gotcha below) before being used as a
+      param name
 
+**Known gotcha — never name a Scene attribute `duration`.** Manim's
+`Scene.__init__` unconditionally sets `self.duration = 0.0` for its own
+internal bookkeeping. A subclass's `duration = ...` class-level default
+gets silently shadowed the instant the Scene is constructed — the
+class-level value is never seen, `self.duration` is just `0.0`, and
+nothing raises until whatever validates the param downstream fails on an
+out-of-range `0.0`. This bit `wave_signal` (engine 9), whose README params
+schema calls the field `duration`; its Scene exposes it as
+`wave_duration` instead and documents the rename inline. `population_growth_model`
+(engine 18, `{ model_type, initial_populations, rate_constants, duration }`)
+will hit the same collision — give it a qualified attribute name
+(e.g. `sim_duration`, matching `particle_physics_sim`'s existing
+convention) from the start rather than rediscovering this.
 ## 9. Out of scope for this template-building task
 
 - Orchestrator code (recipe loading, calling the right engine, final
