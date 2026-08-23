@@ -19,3 +19,8 @@ tribal knowledge of where a file came from.
 - **Attribution required?** — yes/no; if yes, note the exact required
   credit text.
 - **Added** — date (YYYY-MM-DD).
+
+Music tracks go under `assets/music/<mood>/` (`tense`/`ambient`/
+`rhythmic`/`playful` — see README Section 5.1), not directly under
+`assets/music/`. A recipe's `music_mood` must match the folder its
+`music_track` lives in.

@@ -24,6 +24,12 @@ V1 scope (see README Section 9 for the full rationale):
   - A non-null `music_track` that doesn't exist on disk raises here (not
     only in `orchestrator.audio`, which re-checks defensively) so a
     missing asset fails before the expensive render step runs, not after.
+  - `music_mood` (see `MUSIC_MOODS`) must be one of a fixed vocabulary,
+    and -- when `music_track` is set -- must match the name of the
+    `assets/music/<mood>/` folder the track actually lives in. The mood
+    folder is the source of truth for a track's mood; this just catches
+    the two fields drifting apart (e.g. a track moved to a different
+    mood folder without updating `music_mood` to match).
 """
 
 import warnings
@@ -34,6 +40,16 @@ import yaml
 from engines.registry import validate_params_for_category
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
+
+# assets/music/<mood>/ -- see README Section 5. Kept small and by feel
+# (not by math category) so a handful of tracks per mood covers all 19
+# engines without every recipe needing its own track.
+MUSIC_MOODS = {
+    "tense": "suspenseful/building -- reveal-driven engines (search, backtracking, probability puzzles)",
+    "ambient": "calm/minimal -- contemplative engines and elegant-proof reveals",
+    "rhythmic": "driving/repetitive -- generative growth or chaotic-motion engines",
+    "playful": "upbeat/energetic -- competitive or lighthearted engines",
+}
 
 REQUIRED_KEYS = {
     "id",
@@ -54,6 +70,7 @@ REQUIRED_KEYS = {
     "outro_hold",
     "fps",
     "music_track",
+    "music_mood",
     "music_start_offset",
     "music_volume",
     "sfx_enabled",
@@ -100,6 +117,10 @@ def validate_recipe(recipe: dict) -> None:
     if recipe["sfx_enabled"]:
         raise NotImplementedError("sfx_enabled=true is not supported in V1 -- no engine defines sfx trigger points or an asset path for it")
 
+    music_mood = recipe["music_mood"]
+    if music_mood not in MUSIC_MOODS:
+        raise ValueError(f"music_mood={music_mood!r} is not one of {sorted(MUSIC_MOODS)}")
+
     music_track = recipe["music_track"]
     if music_track:
         music_path = Path(music_track)
@@ -107,6 +128,11 @@ def validate_recipe(recipe: dict) -> None:
             music_path = REPO_ROOT / music_path
         if not music_path.exists():
             raise FileNotFoundError(f"recipe's music_track {music_track!r} does not exist on disk (resolved: {music_path})")
+        if music_path.parent.name != music_mood:
+            raise ValueError(
+                f"music_track {music_track!r} lives under a {music_path.parent.name!r} folder but "
+                f"music_mood={music_mood!r} -- the mood folder is the source of truth, update one to match the other"
+            )
 
     applied_style_fields = [field for field in _UNAPPLIED_STYLE_FIELDS if recipe.get(field) is not None]
     if applied_style_fields:

@@ -104,7 +104,8 @@ intro_hold: 1.0
 outro_hold: 1.5
 fps: 60
 
-music_track: "assets/music/track_012.mp3"
+music_track: "assets/music/rhythmic/track_012.mp3"
+music_mood: "rhythmic"        # tense | ambient | rhythmic | playful — see orchestrator/recipe.py's MUSIC_MOODS
 music_start_offset: 12.0
 music_volume: 0.5
 sfx_enabled: false
@@ -123,6 +124,36 @@ status: draft
 params:                # category-specific — shape depends on `category`
   ...
 ```
+
+### 5.1 Music mood folders (`assets/music/<mood>/`)
+
+Tracks are organized by feel, not by math category — `assets/music/tense/`,
+`ambient/`, `rhythmic/`, `playful/` (definitions in
+`orchestrator/recipe.py`'s `MUSIC_MOODS`). A handful of tracks per mood
+covers all 19 engines; there's no need for a 1:1 track-per-engine mapping,
+and rotating within a mood bucket across recipes avoids the "same 2-3
+tracks looped across hundreds of videos" pattern flagged in Section 10.1.
+
+The mood folder a track physically lives in is the source of truth — a
+recipe's `music_mood` must match the folder name of its `music_track`
+(`orchestrator/recipe.py`'s `validate_recipe` enforces this, so the two
+can't silently drift apart). Suggested mapping by feel, not topic:
+
+- **tense** — reveal-driven engines: `puzzle_backtracking`,
+  `pathfinding_maze`, `monte_carlo_probability`, `graph_network`,
+  `tree_data_structure`.
+- **ambient** — contemplative/elegant-proof engines: `proof_without_words`,
+  `wave_signal`, `number_pattern`, `statistical_distribution`,
+  `population_growth_model`.
+- **rhythmic** — generative/chaotic-motion engines: `cellular_automata`,
+  `tessellation_growth`, `recursive_lsystem`, `strange_attractor_chaos`,
+  `particle_physics_sim`, `grid_cell_coloring`.
+- **playful** — competitive/lighthearted engines: `array_bar_race`,
+  `game_theory`, `geometric_transformation`.
+
+`assets/music/` only has `.gitkeep` placeholders per mood folder today —
+no real tracks are committed yet (Section 11.4's licensing manifest still
+applies to whatever's added).
 
 ## 6. Engine library — build this list
 
@@ -313,8 +344,10 @@ relative to `frame_width=9`/`frame_height=16`, not pixels), `fps`,
 `background`, `safe_zone_top`/`safe_zone_bottom`/`safe_zone_side`,
 `intro_hold`/`outro_hold`, `duration: auto` (an engine's natural length —
 the only supported value), `music_track` (including `null`, a valid
-"no music" recipe), `music_start_offset`, `music_volume`, `loop_music`,
-`output_format: h264_mp4` (the only supported value).
+"no music" recipe), `music_mood` (validated against the fixed vocabulary
+in Section 5.1 and cross-checked against `music_track`'s folder),
+`music_start_offset`, `music_volume`, `loop_music`, `output_format:
+h264_mp4` (the only supported value).
 
 **Known V1 limitations** (`orchestrator/recipe.py`'s `validate_recipe`
 enforces these explicitly rather than silently ignoring them):

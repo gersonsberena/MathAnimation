@@ -57,3 +57,30 @@ def test_invalid_params_for_category_raises():
     recipe = make_recipe(params={"puzzle_type": "tower_of_hanoi", "size": 999, "seed": 0})
     with pytest.raises(ValueError, match="out of range"):
         validate_recipe(recipe)
+
+
+def test_unknown_music_mood_raises():
+    recipe = make_recipe(music_mood="melancholy")
+    with pytest.raises(ValueError, match="music_mood"):
+        validate_recipe(recipe)
+
+
+def test_music_track_outside_its_declared_mood_folder_raises(tmp_path):
+    mismatched_dir = tmp_path / "rhythmic"
+    mismatched_dir.mkdir()
+    track = mismatched_dir / "track.mp3"
+    track.write_bytes(b"not a real mp3, just needs to exist")
+
+    recipe = make_recipe(music_track=str(track), music_mood="ambient")
+    with pytest.raises(ValueError, match="rhythmic.*ambient|ambient.*rhythmic"):
+        validate_recipe(recipe)
+
+
+def test_music_track_matching_its_mood_folder_passes(tmp_path):
+    mood_dir = tmp_path / "tense"
+    mood_dir.mkdir()
+    track = mood_dir / "track.mp3"
+    track.write_bytes(b"not a real mp3, just needs to exist")
+
+    recipe = make_recipe(music_track=str(track), music_mood="tense")
+    validate_recipe(recipe)  # no raise

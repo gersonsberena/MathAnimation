@@ -23,6 +23,7 @@ _BASE_RECIPE = {
     "outro_hold": 0.2,
     "fps": 10,
     "music_track": None,
+    "music_mood": "ambient",
     "music_start_offset": 0.0,
     "music_volume": 0.5,
     "sfx_enabled": False,

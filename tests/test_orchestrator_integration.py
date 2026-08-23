@@ -43,7 +43,11 @@ def _write_recipe(recipe, path):
 
 @pytest.mark.slow
 def test_produce_video_with_music_end_to_end(tmp_path):
-    music = tmp_path / "music.mp3"
+    # music_mood defaults to "ambient" in make_recipe() -- validate_recipe
+    # cross-checks that a non-null music_track lives in a same-named
+    # folder, so the synthetic fixture goes under an "ambient" subdir too.
+    music = tmp_path / "ambient" / "music.mp3"
+    music.parent.mkdir()
     _make_tone(music)
 
     recipe = make_recipe(music_track=str(music), music_start_offset=0.5, music_volume=0.5, loop_music=True)
