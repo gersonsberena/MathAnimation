@@ -110,10 +110,15 @@ class ReelScene(Scene):
         target_w = zone.width * padding
         target_h = zone.height * padding
 
-        if mobject.width == 0 or mobject.height == 0:
+        if mobject.width == 0 and mobject.height == 0:
             raise ValueError("cannot fit a zero-size mobject to a zone")
 
-        scale_factor = min(target_w / mobject.width, target_h / mobject.height)
+        # A perfectly horizontal or vertical mobject (e.g. a single trunk
+        # line) legitimately has zero width or height — that dimension
+        # imposes no constraint, it doesn't mean "can't fit."
+        width_scale = target_w / mobject.width if mobject.width > 0 else float("inf")
+        height_scale = target_h / mobject.height if mobject.height > 0 else float("inf")
+        scale_factor = min(width_scale, height_scale)
         if scale_factor <= 0:
             raise ValueError(f"computed non-positive scale factor {scale_factor} fitting to zone")
 

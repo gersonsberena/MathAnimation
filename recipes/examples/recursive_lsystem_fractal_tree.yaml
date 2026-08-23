@@ -40,6 +40,6 @@ date_created: "2026-08-23"
 status: draft
 
 params:
-  rule_type: "fractal_tree"
+  rule_type: "binary_branch"
   depth: 8
   branch_angle: 25

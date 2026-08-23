@@ -10,6 +10,9 @@ venv/
 media/
 **/media/
 
+# Superseded starter scaffold kept locally for reference, not tracked
+temp/
+
 # OS
 .DS_Store
 Thumbs.db
