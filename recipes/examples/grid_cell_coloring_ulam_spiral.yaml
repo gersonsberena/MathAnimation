@@ -1,0 +1,44 @@
+# Example recipe for the grid_cell_coloring engine (README Section 6, #6).
+
+id: ulam-spiral-001
+category: grid_cell_coloring
+template_version: 1
+
+title: "Hidden Order in Chaos"
+subtitle: null
+caption: "Every cell follows one rule"
+fb_post_caption: "Every dot is a prime number. The pattern is not an accident. \U0001F440 #math #primes"
+
+background: "#000000"
+color_palette: ["#000000", "#FFFFFF"]
+font: "Helvetica"
+font_size_title: 48
+font_size_caption: 32
+accent_color: "#FFFFFF"
+
+duration: auto
+intro_hold: 1.0
+outro_hold: 1.5
+fps: 60
+
+music_track: "assets/music/track_015.mp3"
+music_start_offset: 6.0
+music_volume: 0.5
+sfx_enabled: false
+sfx_volume: 0.8
+loop_music: true
+
+resolution: "1080x1920"
+safe_zone_top: 0.06
+safe_zone_bottom: 0.22
+safe_zone_side: 0.16
+output_format: "h264_mp4"
+
+date_created: "2026-08-23"
+status: draft
+
+params:
+  rule_type: "ulam_prime_spiral"
+  grid_size: 151
+  zoom_level: 1.0
+  color_map: "grayscale"
