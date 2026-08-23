@@ -1,0 +1,44 @@
+# Example recipe for the graph_network engine (README Section 6, #8).
+
+id: dijkstra-grid-001
+category: graph_network
+template_version: 1
+
+title: "Shortest Path, Step by Step"
+subtitle: null
+caption: "One step at a time"
+fb_post_caption: "Watch the algorithm find the shortest way through. \U0001F5FA️ #algorithms #dijkstra"
+
+background: "#000000"
+color_palette: ["#4EC9E0", "#FFD23F", "#666666"]
+font: "Helvetica"
+font_size_title: 48
+font_size_caption: 32
+accent_color: "#FFFFFF"
+
+duration: auto
+intro_hold: 1.0
+outro_hold: 1.5
+fps: 60
+
+music_track: "assets/music/track_006.mp3"
+music_start_offset: 9.0
+music_volume: 0.5
+sfx_enabled: false
+sfx_volume: 0.8
+loop_music: true
+
+resolution: "1080x1920"
+safe_zone_top: 0.06
+safe_zone_bottom: 0.22
+safe_zone_side: 0.16
+output_format: "h264_mp4"
+
+date_created: "2026-08-23"
+status: draft
+
+params:
+  graph_source: "grid"
+  algorithm: "dijkstra"
+  start_node: 0
+  end_node: 11
