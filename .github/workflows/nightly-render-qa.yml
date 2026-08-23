@@ -1,11 +1,13 @@
 name: Nightly render QA
 
-# Slow checks only (README Section 11.2 items 4-5 / Section 11.6 step 5):
-# a real (low-res/short) Manim render of every example recipe, a
-# per-engine content vs. title/caption zone-overlap check on that
-# render, and a same-seed-twice determinism check. These need Manim +
-# ffmpeg and take a couple of minutes, so they don't run on every push
-# (see ci.yml) — nightly, or manually via workflow_dispatch.
+# Slow checks only (README Section 11.2 items 4-5 / Section 9 / Section
+# 11.6 step 5): a real (low-res/short) Manim render of every example
+# recipe, a per-engine content vs. title/caption zone-overlap check on
+# that render, a same-seed-twice determinism check, and the real
+# end-to-end orchestrator pipeline test (recipe -> render -> ffmpeg mix
+# -> final video). These need Manim + ffmpeg and take a couple of
+# minutes, so they don't run on every push (see ci.yml) — nightly, or
+# manually via workflow_dispatch.
 
 on:
   schedule:

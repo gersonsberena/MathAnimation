@@ -56,5 +56,22 @@ determinism check) are marked `@pytest.mark.slow` and run explicitly:
 pytest tests/ -v -m slow
 ```
 
+## Producing a final video from a recipe (orchestrator)
+
+README Section 9. Renders the recipe's target engine at its real
+resolution/fps, mixes in the specified music track, and writes a final
+`h264_mp4`:
+
+```bash
+python -m orchestrator recipes/examples/puzzle_backtracking_hanoi.yaml -o out.mp4
+```
+
+Requires the recipe's `music_track` file to actually exist on disk if
+it's non-null — `assets/music/` only has a `.gitkeep` today (no real
+tracks committed yet, see Section 11.4), so every committed example
+recipe will fail validation with a clear `FileNotFoundError` until real
+music assets are added. Set `music_track: null` in a copy of a recipe to
+try the pipeline without one.
+
 Takes about 2 minutes; needs ffmpeg on `PATH` (same requirement as any
 render). This is what `.github/workflows/nightly-render-qa.yml` runs.

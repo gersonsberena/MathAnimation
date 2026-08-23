@@ -292,12 +292,60 @@ schema calls the field `duration`; its Scene exposes it as
 will hit the same collision — give it a qualified attribute name
 (e.g. `sim_duration`, matching `particle_physics_sim`'s existing
 convention) from the start rather than rediscovering this.
-## 9. Out of scope for this template-building task
+## 9. Orchestrator (recipe → final video)
 
-- Orchestrator code (recipe loading, calling the right engine, final
-  ffmpeg audio mix/encode) — separate task, not part of engine development.
-- Music track selection/licensing — manual/creative decision, not automated.
-- Publishing to Facebook — separate concern from generation.
+Built as its own task, on top of the 19 finished engines. Lives under
+`orchestrator/`; entry point is `orchestrator.pipeline.produce_video(recipe_path, output_path)`,
+also runnable directly as `python -m orchestrator <recipe.yaml> -o <output.mp4>`.
+
+Pipeline: load recipe YAML → validate (`orchestrator/recipe.py`, using
+each engine's own `validate_params()` via `engines/registry.py`) → render
+the target engine at the recipe's real resolution/fps, with intro/outro
+holds applied generically via a dynamically-wrapped `construct()`
+(`orchestrator/render.py`) → mix in the music track with ffmpeg, honoring
+volume/offset/looping (`orchestrator/audio.py`) → final `h264_mp4` output.
+
+**Recipe fields honored in V1:** `category`+`params` (dispatch +
+validation), `title`/`caption` (via each engine's `title_text`/
+`caption_text` override attributes), `resolution` (pixel dimensions only
+— must stay 9:16, since every engine's geometry is written in scene units
+relative to `frame_width=9`/`frame_height=16`, not pixels), `fps`,
+`background`, `safe_zone_top`/`safe_zone_bottom`/`safe_zone_side`,
+`intro_hold`/`outro_hold`, `duration: auto` (an engine's natural length —
+the only supported value), `music_track` (including `null`, a valid
+"no music" recipe), `music_start_offset`, `music_volume`, `loop_music`,
+`output_format: h264_mp4` (the only supported value).
+
+**Known V1 limitations** (`orchestrator/recipe.py`'s `validate_recipe`
+enforces these explicitly rather than silently ignoring them):
+- `duration` set to a fixed number of seconds instead of `"auto"` — raises
+  `NotImplementedError`. Would require generically rescaling every
+  engine's internal animation timing, a real architecture change.
+- `output_format` other than `h264_mp4` — raises `NotImplementedError`.
+- `sfx_enabled: true` — raises `NotImplementedError`. No engine defines
+  sfx trigger points or an asset-path field for it yet.
+- A non-null `music_track` that doesn't exist on disk — raises
+  `FileNotFoundError` *before* the render runs (README Section 8's "fail
+  loudly, don't silently produce wrong output" pattern — same reasoning
+  `fit_to_zone` uses for layout).
+- `font`, `font_size_title`, `font_size_caption`, `accent_color`,
+  `color_palette` are recognized but **not applied** — the orchestrator
+  only warns (Python `warnings`), it doesn't raise, since an unapplied
+  style choice is immediately visible on watching the output rather than
+  a hidden correctness problem. Every engine keeps its own hardcoded
+  styling regardless of these fields.
+- `subtitle`, `fb_post_caption`, `sfx_volume` are accepted but unused —
+  no engine has any rendering hook for them.
+
+Tests: `tests/test_orchestrator_recipe.py`, `test_orchestrator_render.py`,
+`test_orchestrator_audio.py` (fast — audio tests use tiny ffmpeg-lavfi
+fixtures, no real render or licensed asset needed) and
+`test_orchestrator_integration.py` (slow, `@pytest.mark.slow` — a real
+low-res end-to-end render + mix through `produce_video`).
+
+Still out of scope: music track selection/licensing (manual/creative
+decision, not automated) and publishing to Facebook (separate concern
+from generation).
 
 ## 10. Distribution & authenticity
 
@@ -371,9 +419,16 @@ math3/
   engines/
     __init__.py
     base.py              # ReelScene, Zones, _fit_to_zone
+    registry.py          # category -> Scene class/module, shared by orchestrator/ and tests/qa_dispatch.py
     recursive_lsystem.py
     particle_physics_sim.py
     ...                  # one module per engine
+  orchestrator/           # Section 9 — recipe YAML -> final muxed video
+    recipe.py             # load_recipe, validate_recipe
+    render.py             # render_silent_video — resolution/fps/holds/params
+    audio.py              # mix_audio — ffmpeg music mix + encode
+    pipeline.py           # produce_video, the top-level entry point
+    __main__.py            # `python -m orchestrator <recipe.yaml> -o <out.mp4>`
   recipes/
     examples/            # one sample recipe per engine, used by CI
   assets/
@@ -385,9 +440,14 @@ math3/
     test_layout.py        # Zones/collision checks, Section 11.2 items 1-2
     test_engines/         # one file per engine, min/max param bounds
     geometry_helpers.py   # shared bounds()/overlaps(), used by test_layout.py and test_render_smoke.py
-    qa_dispatch.py         # recipe -> Scene mapping for the QA tests only, NOT the Section 9 orchestrator
+    qa_dispatch.py         # recipe -> Scene mapping for the QA tests only, thin wrapper around engines/registry.py
     test_render_smoke.py  # @pytest.mark.slow — Section 11.2 item 4 + per-engine zone check
     test_determinism.py   # @pytest.mark.slow — Section 11.2 item 5
+    orchestrator_test_helpers.py    # shared make_recipe() builder for orchestrator tests
+    test_orchestrator_recipe.py     # validate_recipe unit tests
+    test_orchestrator_render.py     # resolution parsing unit tests
+    test_orchestrator_audio.py      # mix_audio tests, tiny ffmpeg-lavfi fixtures, no real render
+    test_orchestrator_integration.py # @pytest.mark.slow — real end-to-end produce_video render
   requirements.txt
   pyproject.toml          # pytest `slow` marker + default -m "not slow"
   environment.md          # Python/Manim/ffmpeg versions, setup steps
