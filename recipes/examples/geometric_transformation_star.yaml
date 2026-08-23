@@ -1,0 +1,50 @@
+# Example recipe for the geometric_transformation engine (README Section 6, #20).
+
+id: symmetry-reveal-001
+category: geometric_transformation
+template_version: 1
+
+title: "What Stays The Same?"
+subtitle: null
+caption: "Rigid motions never change the area. Only scaling does."
+fb_post_caption: "Rotate it, flip it, resize it. Watch what actually changes. \U0001F300 #math #geometry"
+
+background: "#000000"
+color_palette: ["#4EA8C2"]
+font: "Helvetica"
+font_size_title: 44
+font_size_caption: 32
+accent_color: "#FFFFFF"
+
+duration: auto
+intro_hold: 1.0
+outro_hold: 1.5
+fps: 60
+
+music_track: "assets/music/track_024.mp3"
+music_start_offset: 2.0
+music_volume: 0.5
+sfx_enabled: false
+sfx_volume: 0.8
+loop_music: true
+
+resolution: "1080x1920"
+safe_zone_top: 0.06
+safe_zone_bottom: 0.22
+safe_zone_side: 0.16
+output_format: "h264_mp4"
+
+date_created: "2026-08-23"
+status: draft
+
+params:
+  shape_source: "star_polygon"
+  transform_sequence:
+    - type: "rotate"
+      angle: 72.0
+    - type: "reflect"
+      axis: 30.0
+    - type: "scale"
+      factor: 1.4
+    - type: "rotate"
+      angle: 144.0
