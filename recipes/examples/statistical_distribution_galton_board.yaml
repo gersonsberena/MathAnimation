@@ -1,0 +1,43 @@
+# Example recipe for the statistical_distribution engine (README Section 6, #13).
+
+id: galton-board-001
+category: statistical_distribution
+template_version: 1
+
+title: "Random Becomes Predictable"
+subtitle: null
+caption: "Thousands of trials, one shape"
+fb_post_caption: "Every ball takes a random path. The shape isn't random. \U0001F3B2 #probability #math"
+
+background: "#000000"
+color_palette: ["#4EC9E0"]
+font: "Helvetica"
+font_size_title: 48
+font_size_caption: 32
+accent_color: "#FFFFFF"
+
+duration: auto
+intro_hold: 1.0
+outro_hold: 1.5
+fps: 60
+
+music_track: "assets/music/track_014.mp3"
+music_start_offset: 7.0
+music_volume: 0.5
+sfx_enabled: false
+sfx_volume: 0.8
+loop_music: true
+
+resolution: "1080x1920"
+safe_zone_top: 0.06
+safe_zone_bottom: 0.22
+safe_zone_side: 0.16
+output_format: "h264_mp4"
+
+date_created: "2026-08-23"
+status: draft
+
+params:
+  distribution_type: "galton_board"
+  num_trials: 1000
+  seed: 0
