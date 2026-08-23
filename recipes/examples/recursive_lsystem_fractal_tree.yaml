@@ -1,0 +1,45 @@
+# Example recipe for the recursive_lsystem engine (README Section 6, #1).
+# Used by the render smoke test (README Section 11.2, item 4) once that
+# engine exists — one example recipe per engine lives in this directory.
+
+id: fractal-tree-003
+category: recursive_lsystem
+template_version: 1
+
+title: "One Rule. Infinite Branches."
+subtitle: null
+caption: "Every branch splits — and leans one way"
+fb_post_caption: "Which fractal is your favorite? 👇 #math #fractals"
+
+background: "#000000"
+color_palette: ["#00C2FF", "#FF3EA5", "#FFD23F"]
+font: "Helvetica"
+font_size_title: 48
+font_size_caption: 32
+accent_color: "#FFFFFF"
+
+duration: auto
+intro_hold: 1.0
+outro_hold: 1.5
+fps: 60
+
+music_track: "assets/music/track_012.mp3"
+music_start_offset: 12.0
+music_volume: 0.5
+sfx_enabled: false
+sfx_volume: 0.8
+loop_music: true
+
+resolution: "1080x1920"
+safe_zone_top: 0.06
+safe_zone_bottom: 0.22
+safe_zone_side: 0.16
+output_format: "h264_mp4"
+
+date_created: "2026-08-23"
+status: draft
+
+params:
+  rule_type: "fractal_tree"
+  depth: 8
+  branch_angle: 25

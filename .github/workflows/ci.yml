@@ -1,0 +1,31 @@
+name: CI
+
+# Fast checks only (README Section 11.2, items 1-3 / Section 11.6 step 3):
+# zone collision + fit-assertion + param-boundary tests. These run
+# headless, no video encode. Render smoke tests / determinism checks
+# (items 4-5) are slow and belong in a separate nightly workflow once
+# engines exist to validate against.
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+
+      - name: Install system dependencies
+        run: sudo apt-get update && sudo apt-get install -y ffmpeg libpango1.0-dev
+
+      - name: Install Python dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run layout + engine tests
+        run: pytest tests/ -v
