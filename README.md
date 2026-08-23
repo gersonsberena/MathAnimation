@@ -142,7 +142,15 @@ render mechanic, and its `params:` shape.
    apply rules) → render trail/position each frame.
    `params:` `{ sim_type, num_bodies, initial_conditions, sim_duration, seed }`
 
-3. **epicycle_fourier** — "what country/flag is this" reveal (built).
+3. **epicycle_fourier** — "what country/flag is this" reveal. **Not
+   actually built** — marked `(built)` above by mistake in an earlier
+   draft of this README; no `engines/epicycle_fourier.py`,
+   `tests/test_engines/test_epicycle_fourier.py`, or example recipe
+   exists. The other 19 engines in this section are real and tested;
+   this is the one gap. Follow the same workflow as any other engine
+   when it's picked up (pure `validate_params`/`build_*` functions +
+   `ReelScene` subclass + light tests + one example recipe + manual
+   render check).
    Mechanic: take a traced path (SVG/coordinate list), compute Fourier
    coefficients, animate rotating vectors drawing it.
    `params:` `{ path_source, num_circles, difficulty_level }`
@@ -374,11 +382,17 @@ math3/
     paths/               # SVGs etc. for epicycle_fourier and similar
     LICENSES.md           # manifest, see 11.4
   tests/
-    test_layout.py        # Zones/collision checks, Section 11.2
+    test_layout.py        # Zones/collision checks, Section 11.2 items 1-2
     test_engines/         # one file per engine, min/max param bounds
+    geometry_helpers.py   # shared bounds()/overlaps(), used by test_layout.py and test_render_smoke.py
+    qa_dispatch.py         # recipe -> Scene mapping for the QA tests only, NOT the Section 9 orchestrator
+    test_render_smoke.py  # @pytest.mark.slow — Section 11.2 item 4 + per-engine zone check
+    test_determinism.py   # @pytest.mark.slow — Section 11.2 item 5
   requirements.txt
+  pyproject.toml          # pytest `slow` marker + default -m "not slow"
   environment.md          # Python/Manim/ffmpeg versions, setup steps
-  .github/workflows/ci.yml
+  .github/workflows/ci.yml               # fast checks, every push
+  .github/workflows/nightly-render-qa.yml # slow checks (renders), scheduled + manual
 ```
 
 ### 11.2 Automated QA (replaces "eyeball the debug render" in Section 8)
@@ -437,14 +451,25 @@ licensing question comes up later.
 
 ### 11.6 Rollout order
 
-1. Repo layout (11.1) + `environment.md` (11.3) — unblocks everyone, no
-   dependencies.
-2. Zone collision + fit-assertion tests (11.2, items 1-2) against the
-   already-built `ReelScene` base — directly hardens the Section 3 bug fix.
-3. Wire CI to run those tests on push.
-4. Add param boundary tests (11.2 item 3) as each engine in Section 7's
-   priority order is built/extended — not retrofitted all at once.
-5. Render smoke test + determinism check (11.2 items 4-5) once 2-3 engines
-   exist to validate against.
-6. Asset licensing manifest (11.4) — start the moment the first real
-   (non-placeholder) music/SVG asset is committed, not after the fact.
+1. **Done.** Repo layout (11.1) + `environment.md` (11.3).
+2. **Done.** Zone collision + fit-assertion tests (11.2, items 1-2)
+   against `ReelScene` itself — `tests/test_layout.py`.
+3. **Done.** `ci.yml` runs those tests (plus every engine's own tests)
+   on every push.
+4. **Done.** Param boundary tests (11.2 item 3) — one `tests/test_engines/
+   test_<engine>.py` per engine, built alongside each engine rather than
+   retrofitted.
+5. **Done.** Render smoke test + determinism check (11.2 items 4-5) —
+   `tests/test_render_smoke.py` (renders every `recipes/examples/*.yaml`
+   recipe at low-res, asserts success + a per-engine content vs.
+   title/caption zone-overlap check on the real rendered output, not
+   just the base class's own placement) and `tests/test_determinism.py`
+   (every `seed`-accepting recipe rendered twice, pixel-compared). Both
+   are `@pytest.mark.slow` (excluded from a plain `pytest tests/` via
+   `pyproject.toml`'s `addopts`) and run in
+   `.github/workflows/nightly-render-qa.yml` (scheduled + manual
+   trigger), not on every push — real Manim renders, ~2 minutes total.
+   `tests/qa_dispatch.py` is the recipe→Scene mapping this needed — a
+   deliberately minimal, test-only shim, not the Section 9 orchestrator.
+6. Asset licensing manifest (11.4) — not started; no real (non-placeholder)
+   music/SVG asset has been committed yet.

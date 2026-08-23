@@ -1,0 +1,5 @@
+[tool.pytest.ini_options]
+markers = [
+    "slow: does a real Manim render (README Section 11.2 items 4-5) — excluded by default, run with `pytest tests/ -m slow`",
+]
+addopts = "-m 'not slow'"

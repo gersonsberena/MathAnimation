@@ -43,3 +43,18 @@ python -m manim render -ql engines/recursive_lsystem.py <SceneClassName>
 ```
 
 `-ql` = low quality/fast preview. Drop it for a full-res render.
+
+## Running the full QA suite (render smoke test + determinism check)
+
+`pytest tests/` only runs the fast (no-render) checks by default — see
+`pyproject.toml`'s `addopts`. The slow checks (README Section 11.2 items
+4-5: an actual low-res render of every `recipes/examples/*.yaml` recipe,
+a content-vs-zone overlap check on that render, and a same-seed-twice
+determinism check) are marked `@pytest.mark.slow` and run explicitly:
+
+```bash
+pytest tests/ -v -m slow
+```
+
+Takes about 2 minutes; needs ffmpeg on `PATH` (same requirement as any
+render). This is what `.github/workflows/nightly-render-qa.yml` runs.

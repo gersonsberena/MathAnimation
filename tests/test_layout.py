@@ -7,32 +7,8 @@ headless (no video encode) and are meant to run on every push.
 import pytest
 
 from engines.base import ReelScene
-
-
-def _bounds(mobject):
-    """(left, right, bottom, top) in scene coordinates."""
-    left, bottom, _ = mobject.get_corner([-1, -1, 0])
-    right, top, _ = mobject.get_corner([1, 1, 0])
-    return left, right, bottom, top
-
-
-# Adjacent zones are computed via independent formulas (see engines/base.py
-# _build_zones) and share a border at, e.g., title_zone.bottom ==
-# content_zone.top. Those two values land a few ULPs apart in practice, so a
-# strict "<" comparison flags touching-but-not-overlapping zones as
-# overlapping. This tolerance treats anything within EPS as "touching."
-_EPS = 1e-6
-
-
-def _overlaps(a, b) -> bool:
-    a_left, a_right, a_bottom, a_top = _bounds(a)
-    b_left, b_right, b_bottom, b_top = _bounds(b)
-    return (
-        a_left < b_right - _EPS
-        and a_right > b_left + _EPS
-        and a_bottom < b_top - _EPS
-        and a_top > b_bottom + _EPS
-    )
+from tests.geometry_helpers import bounds as _bounds
+from tests.geometry_helpers import overlaps as _overlaps
 
 
 class _TitleAndCaptionScene(ReelScene):

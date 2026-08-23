@@ -1,0 +1,33 @@
+name: Nightly render QA
+
+# Slow checks only (README Section 11.2 items 4-5 / Section 11.6 step 5):
+# a real (low-res/short) Manim render of every example recipe, a
+# per-engine content vs. title/caption zone-overlap check on that
+# render, and a same-seed-twice determinism check. These need Manim +
+# ffmpeg and take a couple of minutes, so they don't run on every push
+# (see ci.yml) — nightly, or manually via workflow_dispatch.
+
+on:
+  schedule:
+    - cron: "0 7 * * *" # 07:00 UTC daily
+  workflow_dispatch:
+
+jobs:
+  render-qa:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+
+      - name: Install system dependencies
+        run: sudo apt-get update && sudo apt-get install -y ffmpeg libpango1.0-dev
+
+      - name: Install Python dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run render smoke + determinism tests
+        run: pytest tests/ -v -m slow
