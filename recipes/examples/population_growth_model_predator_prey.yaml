@@ -1,0 +1,50 @@
+# Example recipe for the population_growth_model engine (README Section 6, #18).
+
+id: predator-prey-001
+category: population_growth_model
+template_version: 1
+
+title: "The Rhythm Of A Population"
+subtitle: null
+caption: "Neither wins. They just keep cycling."
+fb_post_caption: "Predator and prey populations, locked in an endless cycle. \U0001F430\U0001F98A #math #ecology"
+
+background: "#000000"
+color_palette: ["#4EC5E0", "#FF9800"]
+font: "Helvetica"
+font_size_title: 44
+font_size_caption: 32
+accent_color: "#FFFFFF"
+
+duration: auto
+intro_hold: 1.0
+outro_hold: 1.5
+fps: 60
+
+music_track: "assets/music/track_022.mp3"
+music_start_offset: 3.0
+music_volume: 0.5
+sfx_enabled: false
+sfx_volume: 0.8
+loop_music: true
+
+resolution: "1080x1920"
+safe_zone_top: 0.06
+safe_zone_bottom: 0.22
+safe_zone_side: 0.16
+output_format: "h264_mp4"
+
+date_created: "2026-08-23"
+status: draft
+
+params:
+  model_type: "predator_prey"
+  initial_populations:
+    prey: 40.0
+    predator: 9.0
+  rate_constants:
+    alpha: 1.1
+    beta: 0.4
+    delta: 0.1
+    gamma: 0.4
+  duration: 25.0
