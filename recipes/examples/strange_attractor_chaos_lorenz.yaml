@@ -1,0 +1,46 @@
+# Example recipe for the strange_attractor_chaos engine (README Section 6, #14).
+
+id: lorenz-attractor-001
+category: strange_attractor_chaos
+template_version: 1
+
+title: "Order Hidden in Chaos"
+subtitle: null
+caption: "Simple rule. Never repeats."
+fb_post_caption: "Three simple equations. Infinite, never-repeating paths. \U0001F98B #chaos #math"
+
+background: "#000000"
+color_palette: ["#4EA8FF", "#FFFFFF"]
+font: "Helvetica"
+font_size_title: 48
+font_size_caption: 32
+accent_color: "#FFFFFF"
+
+duration: auto
+intro_hold: 1.0
+outro_hold: 1.5
+fps: 60
+
+music_track: "assets/music/track_002.mp3"
+music_start_offset: 10.0
+music_volume: 0.5
+sfx_enabled: false
+sfx_volume: 0.8
+loop_music: true
+
+resolution: "1080x1920"
+safe_zone_top: 0.06
+safe_zone_bottom: 0.22
+safe_zone_side: 0.16
+output_format: "h264_mp4"
+
+date_created: "2026-08-23"
+status: draft
+
+params:
+  system_type: "lorenz"
+  initial_conditions:
+    x: 0.1
+    y: 0.0
+    z: 0.0
+  iterations: 2000
