@@ -1,0 +1,43 @@
+# Example recipe for the pathfinding_maze engine (README Section 6, #12).
+
+id: astar-maze-001
+category: pathfinding_maze
+template_version: 1
+
+title: "Finding The Way Out"
+subtitle: null
+caption: "The path was always there"
+fb_post_caption: "Watching A* search a maze live. \U0001F9ED #math #algorithms #astar"
+
+background: "#000000"
+color_palette: ["#3B82F6", "#FACC15"]
+font: "Helvetica"
+font_size_title: 48
+font_size_caption: 32
+accent_color: "#FFFFFF"
+
+duration: auto
+intro_hold: 1.0
+outro_hold: 1.5
+fps: 60
+
+music_track: "assets/music/track_018.mp3"
+music_start_offset: 2.0
+music_volume: 0.5
+sfx_enabled: false
+sfx_volume: 0.8
+loop_music: true
+
+resolution: "1080x1920"
+safe_zone_top: 0.06
+safe_zone_bottom: 0.22
+safe_zone_side: 0.16
+output_format: "h264_mp4"
+
+date_created: "2026-08-23"
+status: draft
+
+params:
+  maze_source: "random_dfs_maze"
+  algorithm: "a_star"
+  seed: 3
