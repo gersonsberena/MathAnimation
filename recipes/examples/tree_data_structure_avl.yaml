@@ -1,0 +1,42 @@
+# Example recipe for the tree_data_structure engine (README Section 6, #19).
+
+id: avl-rebalance-001
+category: tree_data_structure
+template_version: 1
+
+title: "Watch It Rebalance"
+subtitle: null
+caption: "Never more than log(n) deep. Never by accident."
+fb_post_caption: "A self-balancing tree, staying balanced in real time. \U0001F333 #datastructures #computerscience"
+
+background: "#000000"
+color_palette: ["#4EC5E0"]
+font: "Helvetica"
+font_size_title: 44
+font_size_caption: 32
+accent_color: "#FFFFFF"
+
+duration: auto
+intro_hold: 1.0
+outro_hold: 1.5
+fps: 60
+
+music_track: "assets/music/track_023.mp3"
+music_start_offset: 2.0
+music_volume: 0.5
+sfx_enabled: false
+sfx_volume: 0.8
+loop_music: true
+
+resolution: "1080x1920"
+safe_zone_top: 0.06
+safe_zone_bottom: 0.22
+safe_zone_side: 0.16
+output_format: "h264_mp4"
+
+date_created: "2026-08-23"
+status: draft
+
+params:
+  structure_type: "bst_self_balancing"
+  operations_sequence: [50, 30, 70, 20, 40, 60, 80, 10, 90, 25]
