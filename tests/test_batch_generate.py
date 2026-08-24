@@ -1,7 +1,10 @@
 import datetime
+import subprocess
+import sys
 import warnings
 
 import pytest
+import yaml
 
 from batch.generate import generate_batch, generate_recipe, load_variations
 from engines.registry import CATEGORY_TO_SCENE_CLASS
@@ -53,6 +56,21 @@ def test_generate_batch_returns_one_per_category():
     categories = ["puzzle_backtracking", "wave_signal"]
     batch = generate_batch(categories, date=_A_DATE)
     assert set(batch) == set(categories)
+
+
+def test_cli_variant_flag_targets_a_specific_topic(tmp_path):
+    result = subprocess.run(
+        [sys.executable, "-m", "batch", "--categories", "puzzle_backtracking", "--variant", "2", "--out-dir", str(tmp_path)],
+        capture_output=True,
+        text=True,
+    )
+    assert result.returncode == 0, result.stderr
+
+    generated = list(tmp_path.glob("*.yaml"))
+    assert len(generated) == 1
+    with open(generated[0], encoding="utf-8") as f:
+        recipe = yaml.safe_load(f)
+    assert recipe["params"]["puzzle_type"] == "n_queens"
 
 
 @pytest.mark.parametrize("category", sorted(CATEGORY_TO_SCENE_CLASS))

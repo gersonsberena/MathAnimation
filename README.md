@@ -380,7 +380,7 @@ from generation).
 it that turns the curated `recipes/examples/*.yaml` (one per category,
 already-valid `params`) into ready-to-render recipes without hand-writing
 a new YAML file per video. Entry point:
-`python -m batch [--categories cat1,cat2,...] [--out-dir recipes/generated] [--date YYYY-MM-DD]`
+`python -m batch [--categories cat1,cat2,...] [--out-dir recipes/generated] [--date YYYY-MM-DD] [--variant N]`
 (all 20 categories, `recipes/generated/` — gitignored, day-to-day output
 not curated examples — and today's date by default).
 
@@ -389,9 +389,16 @@ recipe's common-block styling unchanged, then overrides `title`/
 `caption`/`fb_post_caption` — and optionally `params` too — with one
 entry from `recipes/variations.yaml` (a per-category pool, e.g. 2-5
 entries each — Section 10.2's "hook phrasing varies" checklist item,
-satisfied mechanically instead of by memory). Which variant is picked is
-deterministic from the requested date's day-of-year, so re-running for
-the same date is idempotent but different dates rotate through the pool.
+satisfied mechanically instead of by memory). Which variant is picked
+defaults to deterministic-from-the-requested-date's-day-of-year (so
+re-running for the same date is idempotent, different dates rotate
+through the pool) unless `--variant N` is given, which pins every
+requested category to variant index `N` directly — the practical way to
+target one specific topic (e.g. `puzzle_backtracking`'s Rubik's-cube
+variant) instead of hunting for a date that happens to land on it; pair
+it with `--categories` naming just that one category. List a category's
+variants with
+`python -c "from batch.generate import load_variations; [print(i, v['title']) for i, v in enumerate(load_variations('puzzle_backtracking'))]"`.
 Generated recipes still need `music_track` filled in (or left `null`)
 before rendering, like any recipe.
 
@@ -508,7 +515,7 @@ math3/
     __main__.py            # `python -m orchestrator <recipe.yaml> -o <out.mp4>`
   batch/                  # Section 9.1 — batch recipe generation, rotated hooks
     generate.py            # generate_recipe, generate_batch
-    __main__.py            # `python -m batch [--categories ...] [--out-dir ...]`
+    __main__.py            # `python -m batch [--categories ...] [--out-dir ...] [--variant N]`
   recipes/
     examples/            # one sample recipe per engine, used by CI
     variations.yaml       # title/caption/fb_post_caption variant pool per category, used by batch/
