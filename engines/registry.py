@@ -21,7 +21,17 @@ marked "(built)" in an earlier README draft but never implemented (see
 the note in README Section 6). It's deliberately absent from this
 registry; a recipe with that category fails lookup with a clear error
 rather than silently doing nothing.
+
+Not every engine's `validate_params()` signature covers 100% of its
+`params:` keys -- e.g. `particle_physics_sim.validate_params()` checks
+`sim_type`/`num_bodies`/`sim_duration`/`seed` but not `initial_conditions`,
+which is free-form and validated separately inside `build_trajectories()`
+(a shape check, not a bounds check). `validate_params_for_category()`
+only forwards the keys each engine's `validate_params()` actually
+declares, rather than assuming every recipe param key is one of them.
 """
+
+import inspect
 
 import engines.array_bar_race as array_bar_race
 import engines.cellular_automata as cellular_automata
@@ -101,4 +111,6 @@ def scene_class_for_category(category):
 def validate_params_for_category(category, params):
     if category not in CATEGORY_TO_MODULE:
         raise ValueError(f"unknown category {category!r}, must be one of {sorted(CATEGORY_TO_MODULE)}")
-    CATEGORY_TO_MODULE[category].validate_params(**params)
+    validate_params = CATEGORY_TO_MODULE[category].validate_params
+    accepted_keys = set(inspect.signature(validate_params).parameters)
+    validate_params(**{k: v for k, v in params.items() if k in accepted_keys})

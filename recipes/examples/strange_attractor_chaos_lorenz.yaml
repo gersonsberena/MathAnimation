@@ -21,7 +21,7 @@ intro_hold: 1.0
 outro_hold: 1.5
 fps: 60
 
-music_track: "assets/music/rhythmic/track_002.mp3"
+music_track: null
 music_mood: "rhythmic"
 music_start_offset: 10.0
 music_volume: 0.5

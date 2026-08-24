@@ -21,7 +21,7 @@ intro_hold: 1.0
 outro_hold: 1.5
 fps: 60
 
-music_track: "assets/music/playful/track_007.mp3"
+music_track: null
 music_mood: "playful"
 music_start_offset: 5.0
 music_volume: 0.5
