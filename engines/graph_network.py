@@ -295,3 +295,4 @@ class GraphNetworkReel(ReelScene):
         update_nodes(node_group)  # apply the final state once more after clearing the updater
 
         self.set_caption(self.caption_text or "One step at a time")
+        self.wait(0.5)

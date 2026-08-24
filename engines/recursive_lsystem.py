@@ -115,3 +115,4 @@ class RecursiveLSystemReel(ReelScene):
         self.play(Create(shape), run_time=4)
 
         self.set_caption(self.caption_text or "Every branch splits — and leans one way")
+        self.wait(0.5)

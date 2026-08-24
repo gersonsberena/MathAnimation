@@ -156,6 +156,7 @@ class NumberPatternReel(ReelScene):
             self._construct_circle_lines(data["points"], data["lines"], zone)
 
         self.set_caption(self.caption_text or "Simple numbers. Hidden structure.")
+        self.wait(0.5)
 
     def _construct_raster(self, full_image, zone):
         num_rows = full_image.shape[0]

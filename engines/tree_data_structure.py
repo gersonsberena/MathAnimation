@@ -234,6 +234,7 @@ class TreeDataStructureReel(ReelScene):
             caption = "Different keys, same address. That's a collision."
 
         self.set_caption(self.caption_text or caption)
+        self.wait(0.5)
 
     def _construct_tree(self, data):
         frames = data["frames"]

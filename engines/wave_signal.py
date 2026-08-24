@@ -175,3 +175,4 @@ class WaveSignalReel(ReelScene):
         self.wait(0.3)
 
         self.set_caption(self.caption_text or "Add enough waves, get any shape")
+        self.wait(0.5)

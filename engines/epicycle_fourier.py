@@ -266,3 +266,4 @@ class EpicycleFourierReel(ReelScene):
         self.add(final_epicycles, final_trace)
 
         self.set_caption(self.caption_text or f"{_PATH_LABELS[self.path_source]} -- traced with {self.num_circles} circles")
+        self.wait(0.5)

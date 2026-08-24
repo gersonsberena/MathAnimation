@@ -204,3 +204,4 @@ class GeometricTransformationReel(ReelScene):
 
         self.wait(0.3)
         self.set_caption(self.caption_text or "Rigid motions never change the area. Only scaling does.")
+        self.wait(0.5)

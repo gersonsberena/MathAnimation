@@ -214,3 +214,4 @@ class ArrayBarRaceReel(ReelScene):
         self.wait(0.3)
 
         self.set_caption(self.caption_text or "Every swap, one step closer")
+        self.wait(0.5)

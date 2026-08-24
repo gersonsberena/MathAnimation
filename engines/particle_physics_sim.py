@@ -290,3 +290,4 @@ class ParticlePhysicsSimReel(ReelScene):
             dot.clear_updaters()
 
         self.set_caption(self.caption_text or "Same equations. Wildly different paths.")
+        self.wait(0.5)

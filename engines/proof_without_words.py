@@ -202,6 +202,7 @@ class ProofWithoutWordsReel(ReelScene):
         self.wait(1.5)
 
         self.set_caption(self.caption_text or f"{a:.0f}² + {b:.0f}² = {c:.0f}². Same square, rearranged.")
+        self.wait(0.5)
 
     def _construct_circle_unwrap(self, data):
         self.set_title(self.title_text or "Unwrapping a Circle")
@@ -245,3 +246,4 @@ class ProofWithoutWordsReel(ReelScene):
         self.wait(1.0)
 
         self.set_caption(self.caption_text or f"½ × 2πr × r = πr² ≈ {np.pi * radius ** 2:.1f}")
+        self.wait(0.5)

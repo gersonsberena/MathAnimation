@@ -296,6 +296,7 @@ class PuzzleBacktrackingReel(ReelScene):
         self.wait(0.3)
 
         self.set_caption(self.caption_text or f"{num_disks} disks, {len(frames) - 1} moves. Every one necessary.")
+        self.wait(0.5)
 
     def _construct_n_queens(self, data):
         frames, n = data["frames"], data["n"]
@@ -349,6 +350,7 @@ class PuzzleBacktrackingReel(ReelScene):
         self.wait(0.3)
 
         self.set_caption(self.caption_text or f"{n} queens, zero conflicts. Backtracking found it.")
+        self.wait(0.5)
 
     def _construct_rubiks_cube(self, data):
         frames = data["frames"]
@@ -394,3 +396,4 @@ class PuzzleBacktrackingReel(ReelScene):
         self.wait(0.3)
 
         self.set_caption(self.caption_text or "Every scramble has a way back")
+        self.wait(0.5)

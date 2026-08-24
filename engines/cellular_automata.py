@@ -209,3 +209,4 @@ class CellularAutomataReel(ReelScene):
         self.wait(0.3)
 
         self.set_caption(self.caption_text or "The rule never changes")
+        self.wait(0.5)

@@ -141,3 +141,4 @@ class StatisticalDistributionReel(ReelScene):
         self.wait(0.3)
 
         self.set_caption(self.caption_text or "Thousands of trials, one shape")
+        self.wait(0.5)

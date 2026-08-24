@@ -227,3 +227,4 @@ class GridCellColoringReel(ReelScene):
         self.play(FadeIn(image), run_time=1.5)
 
         self.set_caption(self.caption_text or "Every cell follows one rule")
+        self.wait(0.5)

@@ -252,3 +252,4 @@ class GameTheoryReel(ReelScene):
         self.wait(0.3)
 
         self.set_caption(self.caption_text or "Cooperation isn't just nice. It's strategy.")
+        self.wait(0.5)

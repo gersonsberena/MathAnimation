@@ -337,6 +337,7 @@ class PathfindingMazeReel(ReelScene):
                 self.wait(0.5)
 
         self.set_caption(self.caption_text or "The path was always there")
+        self.wait(0.5)
 
     @staticmethod
     def _path_line(path, cell_center):

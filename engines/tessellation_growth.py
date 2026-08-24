@@ -219,3 +219,4 @@ class TessellationGrowthReel(ReelScene):
             poly.clear_updaters()
 
         self.set_caption(self.caption_text or "The rule never changes, the pattern never ends")
+        self.wait(0.5)

@@ -228,3 +228,4 @@ class MonteCarloProbabilityReel(ReelScene):
         self.wait(0.3)
 
         self.set_caption(self.caption_text or "More trials, closer to the truth")
+        self.wait(0.5)

@@ -132,6 +132,7 @@ class StrangeAttractorChaosReel(ReelScene):
             self._construct_raster(data["image"], zone)
 
         self.set_caption(self.caption_text or "Simple rule. Never repeats.")
+        self.wait(0.5)
 
     def _construct_trajectory(self, points, zone):
         num_frames = points.shape[0]
