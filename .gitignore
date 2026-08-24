@@ -13,6 +13,9 @@ media/
 # Superseded starter scaffold kept locally for reference, not tracked
 temp/
 
+# batch/__main__.py output — day-to-day generated recipes, not curated examples
+recipes/generated/
+
 # OS
 .DS_Store
 Thumbs.db

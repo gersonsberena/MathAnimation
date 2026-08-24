@@ -374,6 +374,41 @@ Still out of scope: music track selection/licensing (manual/creative
 decision, not automated) and publishing to Facebook (separate concern
 from generation).
 
+### 9.1 Batch recipe generation (`batch/`)
+
+`orchestrator/` renders one recipe at a time; `batch/` is the layer above
+it that turns the curated `recipes/examples/*.yaml` (one per category,
+already-valid `params`) into ready-to-render recipes without hand-writing
+a new YAML file per video. Entry point:
+`python -m batch [--categories cat1,cat2,...] [--out-dir recipes/generated] [--date YYYY-MM-DD]`
+(all 20 categories, `recipes/generated/` — gitignored, day-to-day output
+not curated examples — and today's date by default).
+
+For each requested category, `batch/generate.py` copies its example
+recipe's `params` and common-block styling unchanged, then overrides
+`title`/`caption`/`fb_post_caption` with one entry from
+`recipes/variations.yaml` (a small per-category pool, at least 2 entries
+each — Section 10.2's "hook phrasing varies" checklist item, satisfied
+mechanically instead of by memory). Which variant is picked is
+deterministic from the requested date's day-of-year, so re-running for
+the same date is idempotent but different dates rotate through the pool.
+Generated recipes still need `music_track` filled in (or left `null`)
+before rendering, like any recipe.
+
+V1 scope: only the title/caption/fb_post_caption text layer rotates.
+`params` always comes from the category's example recipe unchanged —
+sampling valid random params per engine would need per-engine range/enum
+knowledge that's already encoded once in each engine's own
+`validate_params()`; duplicating it here wasn't worth the risk of the two
+drifting apart. Add more categories' variety by editing
+`recipes/variations.yaml` directly — no code changes needed.
+
+Tests: `tests/test_batch_generate.py`, including a sweep asserting every
+category in `engines/registry.py`'s `CATEGORY_TO_SCENE_CLASS` has both a
+variation-pool entry and a passing `orchestrator.recipe.validate_recipe()`
+result — this is what would catch a newly-added engine forgetting to add
+its `recipes/variations.yaml` entry.
+
 ## 10. Distribution & authenticity
 
 Generation is deterministic code (Section 1) — that already puts this
@@ -413,6 +448,12 @@ itself out of scope for engine-building work).
       allows it (loop-friendly content raises rewatch/completion rate).
 - [ ] No sourced asset (SVG path, template, font) carries another
       platform's watermark or attribution mark.
+
+`batch/` (see Section 9.1) mechanically covers the first checklist item —
+`python -m batch` rotates `title`/`caption`/`fb_post_caption` through a
+per-category variant pool instead of reusing one fixed set of hooks.
+Outro CTA rotation and music/SFX variation are still manual — `batch/`
+doesn't touch `params`, music selection, or SFX.
 
 ### 10.3 Growth loop
 
@@ -456,8 +497,13 @@ math3/
     audio.py              # mix_audio — ffmpeg music mix + encode
     pipeline.py           # produce_video, the top-level entry point
     __main__.py            # `python -m orchestrator <recipe.yaml> -o <out.mp4>`
+  batch/                  # Section 9.1 — batch recipe generation, rotated hooks
+    generate.py            # generate_recipe, generate_batch
+    __main__.py            # `python -m batch [--categories ...] [--out-dir ...]`
   recipes/
     examples/            # one sample recipe per engine, used by CI
+    variations.yaml       # title/caption/fb_post_caption variant pool per category, used by batch/
+    generated/             # batch/'s output — gitignored, not committed
   assets/
     fonts/
     music/
@@ -475,6 +521,8 @@ math3/
     test_orchestrator_render.py     # resolution parsing unit tests
     test_orchestrator_audio.py      # mix_audio tests, tiny ffmpeg-lavfi fixtures, no real render
     test_orchestrator_integration.py # @pytest.mark.slow — real end-to-end produce_video render
+    test_registry.py                # engines/registry.py dispatch/validate_params-forwarding tests
+    test_batch_generate.py          # batch/ generation + variation-pool coverage sweep
   requirements.txt
   pyproject.toml          # pytest `slow` marker + default -m "not slow"
   environment.md          # Python/Manim/ffmpeg versions, setup steps

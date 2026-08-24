@@ -1,0 +1,173 @@
+# Title/caption/fb_post_caption variant pool per category, for batch
+# recipe generation (batch/generate.py). Rotates hook phrasing across
+# generated recipes so a run of them doesn't reuse identical text
+# (README Section 10.2's "hook phrasing varies" checklist item).
+#
+# Variant 0 for every existing category is written independently of
+# (not required to byte-match) the corresponding recipes/examples/*.yaml
+# file's text -- generate_recipe() always overrides title/caption/
+# fb_post_caption from here, on top of that file's params/common-block
+# styling. Add more variants any time by editing this file; no code
+# changes needed. Every category in engines/registry.py's
+# CATEGORY_TO_SCENE_CLASS must have at least one entry here
+# (tests/test_batch_generate.py checks this).
+
+array_bar_race:
+  - title: "Who Sorts Fastest?"
+    caption: "Every swap, one step closer"
+    fb_post_caption: "Bubble sort, one swap at a time. \U0001F440 #algorithms #sorting"
+  - title: "Can You Predict The Winner?"
+    caption: "Bubble sort: simple rule, slow climb"
+    fb_post_caption: "7 numbers race to get sorted. Bubble sort is slow -- but it never fails. \U0001F422 #algorithms #sorting"
+
+cellular_automata:
+  - title: "One Rule, Every Generation"
+    caption: "The rule never changes"
+    fb_post_caption: "One rule. No exceptions. Watch what it builds. \U0001F9EC #math #gameoflife"
+  - title: "It's Alive. It's Just Math."
+    caption: "No AI. No randomness. Just one rule, repeated."
+    fb_post_caption: "A glider that just... keeps gliding. From one simple rule. \U0001F9EC #math #cellularautomata"
+
+game_theory:
+  - title: "Only The Fittest Strategy Survives"
+    caption: "Cooperation isn't just nice. It's strategy."
+    fb_post_caption: "Ran a 4-strategy prisoner's dilemma tournament. Pure selfishness lost. \U0001F440 #gametheory #math"
+  - title: "The Nice Guy Strategy Won"
+    caption: "Tit-for-tat: forgive once, remember always"
+    fb_post_caption: "Simulated betrayal vs. cooperation 50 rounds deep. Nice guys finished first. \U0001F91D #gametheory"
+
+geometric_transformation:
+  - title: "What Stays The Same?"
+    caption: "Rigid motions never change the area. Only scaling does."
+    fb_post_caption: "Rotate it, flip it, resize it. Watch what actually changes. \U0001F300 #math #geometry"
+  - title: "Rotate It. Flip It. Still The Same?"
+    caption: "Area survives every rigid motion -- scaling is the only cheat"
+    fb_post_caption: "Which transformations actually change this shape? Most don't. \U0001F300 #geometry #math"
+
+graph_network:
+  - title: "Shortest Path, Step by Step"
+    caption: "One step at a time"
+    fb_post_caption: "Watch the algorithm find the shortest way through. \U0001F5FA️ #algorithms #dijkstra"
+  - title: "The Algorithm Never Guesses"
+    caption: "Every step, provably the shortest so far"
+    fb_post_caption: "Dijkstra's algorithm finding the shortest path -- and never backtracking. \U0001F5FA️ #dijkstra #algorithms"
+
+grid_cell_coloring:
+  - title: "Hidden Order in Chaos"
+    caption: "Every cell follows one rule"
+    fb_post_caption: "Every dot is a prime number. The pattern is not an accident. \U0001F440 #math #primes"
+  - title: "Primes Aren't Actually Random"
+    caption: "Spiral the integers. The primes line up."
+    fb_post_caption: "This spiral is just counting numbers. The pattern is primes. \U0001F522 #math #primes"
+
+monte_carlo_probability:
+  - title: "Does It Converge?"
+    caption: "More trials, closer to the truth"
+    fb_post_caption: "Switch or stay? Run it 2000 times and watch the math win. \U0001F6AA #probability #montyhall"
+  - title: "Switch Or Stay? Math Has An Answer."
+    caption: "800 trials settle the debate"
+    fb_post_caption: "The Monty Hall problem still breaks people's intuition. Here's proof it shouldn't. \U0001F6AA #montyhall #probability"
+
+number_pattern:
+  - title: "Numbers Hide a Pattern"
+    caption: "Simple numbers. Hidden structure."
+    fb_post_caption: "Color every even number black, every odd number white. \U0001F440 #math #pascalstriangle"
+  - title: "Pascal's Triangle Hides A Fractal"
+    caption: "Even and odd numbers draw Sierpinski's triangle"
+    fb_post_caption: "Color Pascal's triangle by parity. A fractal appears. \U0001F53A #math #pascalstriangle"
+
+particle_physics_sim:
+  - title: "Two Arms, Infinite Chaos."
+    caption: "Same equations. Wildly different paths."
+    fb_post_caption: "Same starting angle, tiny nudge -- totally different chaos. \U0001F300 #physics #chaos"
+  - title: "One Degree Changes Everything"
+    caption: "Same physics, same start -- different chaos every time"
+    fb_post_caption: "A double pendulum is fully deterministic and still unpredictable. \U0001F300 #chaostheory #physics"
+
+pathfinding_maze:
+  - title: "Finding The Way Out"
+    caption: "The path was always there"
+    fb_post_caption: "Watching A* search a maze live. \U0001F9ED #math #algorithms #astar"
+  - title: "A* Never Wastes A Step"
+    caption: "It doesn't wander. It estimates."
+    fb_post_caption: "A* solving a maze -- smarter than blind search. \U0001F9ED #astar #pathfinding"
+
+population_growth_model:
+  - title: "The Rhythm Of A Population"
+    caption: "Neither wins. They just keep cycling."
+    fb_post_caption: "Predator and prey populations, locked in an endless cycle. \U0001F430\U0001F98A #math #ecology"
+  - title: "Nobody Wins This Cycle"
+    caption: "More prey feeds more predators feeds fewer prey -- forever"
+    fb_post_caption: "Foxes and rabbits, locked in the same loop for 25 years straight. \U0001F98A\U0001F430 #ecology #math"
+
+proof_without_words:
+  - title: "A Square Proof"
+    caption: "3\xB2 + 4\xB2 = 5\xB2. Same square, rearranged."
+    fb_post_caption: "No numbers, no algebra. Just watch the squares move. \U0001F4D0 #math #pythagoreantheorem"
+  - title: "No Algebra. Just Watch."
+    caption: "The squares rearrange themselves into proof"
+    fb_post_caption: "The Pythagorean theorem, proven without a single equation. \U0001F4D0 #pythagoreantheorem #math"
+
+puzzle_backtracking:
+  - title: "Solved, One Step At A Time"
+    caption: "5 disks, 31 moves. Every one necessary."
+    fb_post_caption: "Watch the recursion unfold, one disk at a time. \U0001F5FC #math #towerofhanoi"
+  - title: "31 Moves. Zero Wasted."
+    caption: "Every move follows from the one before it"
+    fb_post_caption: "Recursion solving Tower of Hanoi -- and never second-guessing itself. \U0001F5FC #recursion #towerofhanoi"
+
+recursive_lsystem:
+  - title: "One Rule. Infinite Branches."
+    caption: "Every branch splits -- and leans one way"
+    fb_post_caption: "Which fractal is your favorite? \U0001F447 #math #fractals"
+  - title: "This Tree Only Knows One Rule"
+    caption: "Branch, repeat, branch again -- that's the whole recipe"
+    fb_post_caption: "One branching rule, applied 8 times. This is what you get. \U0001F33F #fractals #math"
+
+statistical_distribution:
+  - title: "Random Becomes Predictable"
+    caption: "Thousands of trials, one shape"
+    fb_post_caption: "Every ball takes a random path. The shape isn't random. \U0001F3B2 #probability #math"
+  - title: "Chaos In, Bell Curve Out"
+    caption: "Every ball is random. The pile never is."
+    fb_post_caption: "1000 random balls fall through pegs -- and draw a perfect curve. \U0001F3B2 #statistics #math"
+
+strange_attractor_chaos:
+  - title: "Order Hidden in Chaos"
+    caption: "Simple rule. Never repeats."
+    fb_post_caption: "Three simple equations. Infinite, never-repeating paths. \U0001F98B #chaos #math"
+  - title: "It Never Repeats. Ever."
+    caption: "Three equations, infinite unrepeated paths"
+    fb_post_caption: "The Lorenz attractor: deterministic, chaotic, and never once retraces itself. \U0001F98B #lorenzattractor #chaos"
+
+tessellation_growth:
+  - title: "One Shape, Endless Pattern"
+    caption: "The rule never changes, the pattern never ends"
+    fb_post_caption: "This pattern never repeats. Not once. \U0001F31F #math #penrose"
+  - title: "A Pattern That Breaks The Rules"
+    caption: "Never repeats, never overlaps, never runs out of room"
+    fb_post_caption: "Penrose tiling: five-fold symmetry that shouldn't be possible in a tiling. Yet here it is. ⭐ #penrosetiling #math"
+
+tree_data_structure:
+  - title: "Watch It Rebalance"
+    caption: "Never more than log(n) deep. Never by accident."
+    fb_post_caption: "A self-balancing tree, staying balanced in real time. \U0001F333 #datastructures #computerscience"
+  - title: "It Fixes Itself Mid-Insert"
+    caption: "Ten insertions. Still never more than log(n) deep."
+    fb_post_caption: "Watch a self-balancing tree correct its own shape in real time. \U0001F333 #datastructures #bst"
+
+wave_signal:
+  - title: "Simple Waves, Complex Shapes"
+    caption: "Add enough waves, get any shape"
+    fb_post_caption: "Nine sine waves. One square wave. \U0001F4C8 #math #fourier"
+  - title: "A Square Wave Made Of Circles"
+    caption: "Nine sines, stacked, become one square"
+    fb_post_caption: "You can build a square wave out of nothing but sine waves. Here's how many it takes. \U0001F4C8 #fourierseries #math"
+
+epicycle_fourier:
+  - title: "Can You Guess The Shape?"
+    caption: "It's drawn entirely by rotating circles"
+    fb_post_caption: "This shape is being drawn by nothing but spinning circles. Guess it before the reveal. \U0001F52E #math #fourierseries"
+  - title: "Circles Within Circles Draw This"
+    caption: "Every curve is just a sum of spinning circles"
+    fb_post_caption: "Any closed shape can be drawn by circles spinning inside circles. Watch. ⭕ #epicycles #math"
