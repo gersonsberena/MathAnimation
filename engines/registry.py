@@ -16,11 +16,9 @@ attribute is `growth_duration` instead. `validate_params()` itself is
 untouched by that collision (it's a plain function, not a Scene
 attribute), so validation always uses the raw recipe key.
 
-`epicycle_fourier` (README Section 6, #3) is a known, documented gap —
-marked "(built)" in an earlier README draft but never implemented (see
-the note in README Section 6). It's deliberately absent from this
-registry; a recipe with that category fails lookup with a clear error
-rather than silently doing nothing.
+`epicycle_fourier` (README Section 6, #3) is now built and included in the
+registry like every other engine (previously a documented gap in an
+earlier README draft).
 
 Not every engine's `validate_params()` signature covers 100% of its
 `params:` keys -- e.g. `particle_physics_sim.validate_params()` checks
@@ -35,6 +33,7 @@ import inspect
 
 import engines.array_bar_race as array_bar_race
 import engines.cellular_automata as cellular_automata
+import engines.epicycle_fourier as epicycle_fourier
 import engines.game_theory as game_theory
 import engines.geometric_transformation as geometric_transformation
 import engines.graph_network as graph_network
@@ -56,6 +55,7 @@ import engines.wave_signal as wave_signal
 CATEGORY_TO_SCENE_CLASS = {
     "array_bar_race": array_bar_race.ArrayBarRaceReel,
     "cellular_automata": cellular_automata.CellularAutomataReel,
+    "epicycle_fourier": epicycle_fourier.EpicycleFourierReel,
     "game_theory": game_theory.GameTheoryReel,
     "geometric_transformation": geometric_transformation.GeometricTransformationReel,
     "graph_network": graph_network.GraphNetworkReel,
@@ -78,6 +78,7 @@ CATEGORY_TO_SCENE_CLASS = {
 CATEGORY_TO_MODULE = {
     "array_bar_race": array_bar_race,
     "cellular_automata": cellular_automata,
+    "epicycle_fourier": epicycle_fourier,
     "game_theory": game_theory,
     "geometric_transformation": geometric_transformation,
     "graph_network": graph_network,

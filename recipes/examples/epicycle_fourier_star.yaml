@@ -1,0 +1,44 @@
+# Example recipe for the epicycle_fourier engine (README Section 6, #3).
+
+id: epicycle-star-001
+category: epicycle_fourier
+template_version: 1
+
+title: "Guess the Shape"
+subtitle: null
+caption: "A five-pointed star, drawn with rotating circles"
+fb_post_caption: "Can you guess the shape before the reveal? 🌟 #mathematics #fourier"
+
+background: "#000000"
+color_palette: ["#4EC9E0", "#FFD23F", "#666666"]
+font: "Helvetica"
+font_size_title: 48
+font_size_caption: 32
+accent_color: "#FFFFFF"
+
+duration: auto
+intro_hold: 1.0
+outro_hold: 1.5
+fps: 60
+
+music_track: null
+music_mood: "tense"
+music_start_offset: 9.0
+music_volume: 0.5
+sfx_enabled: false
+sfx_volume: 0.8
+loop_music: true
+
+resolution: "1080x1920"
+safe_zone_top: 0.06
+safe_zone_bottom: 0.22
+safe_zone_side: 0.16
+output_format: "h264_mp4"
+
+date_created: "2026-08-24"
+status: draft
+
+params:
+  path_source: "star"
+  num_circles: 15
+  difficulty_level: "medium"

@@ -130,7 +130,7 @@ params:                # category-specific — shape depends on `category`
 Tracks are organized by feel, not by math category — `assets/music/tense/`,
 `ambient/`, `rhythmic/`, `playful/` (definitions in
 `orchestrator/recipe.py`'s `MUSIC_MOODS`). A handful of tracks per mood
-covers all 19 engines; there's no need for a 1:1 track-per-engine mapping,
+covers all 20 engines; there's no need for a 1:1 track-per-engine mapping,
 and rotating within a mood bucket across recipes avoids the "same 2-3
 tracks looped across hundreds of videos" pattern flagged in Section 10.1.
 
@@ -139,7 +139,7 @@ recipe's `music_mood` must match the folder name of its `music_track`
 (`orchestrator/recipe.py`'s `validate_recipe` enforces this, so the two
 can't silently drift apart). Suggested mapping by feel, not topic:
 
-- **tense** — reveal-driven engines: `puzzle_backtracking`,
+- **tense** — reveal-driven engines: `epicycle_fourier`, `puzzle_backtracking`,
   `pathfinding_maze`, `monte_carlo_probability`, `graph_network`,
   `tree_data_structure`.
 - **ambient** — contemplative/elegant-proof engines: `proof_without_words`,
@@ -173,17 +173,11 @@ render mechanic, and its `params:` shape.
    apply rules) → render trail/position each frame.
    `params:` `{ sim_type, num_bodies, initial_conditions, sim_duration, seed }`
 
-3. **epicycle_fourier** — "what country/flag is this" reveal. **Not
-   actually built** — marked `(built)` above by mistake in an earlier
-   draft of this README; no `engines/epicycle_fourier.py`,
-   `tests/test_engines/test_epicycle_fourier.py`, or example recipe
-   exists. The other 19 engines in this section are real and tested;
-   this is the one gap. Follow the same workflow as any other engine
-   when it's picked up (pure `validate_params`/`build_*` functions +
-   `ReelScene` subclass + light tests + one example recipe + manual
-   render check).
-   Mechanic: take a traced path (SVG/coordinate list), compute Fourier
-   coefficients, animate rotating vectors drawing it.
+3. **epicycle_fourier** — Fourier-epicycle path reveal, "guess the shape"
+   guessing game. Mechanic: take a closed 2D path, compute its discrete
+   Fourier series via FFT, keep the largest-magnitude terms, and animate
+   nested epicycles whose combined tip traces the path. Difficulty levels
+   control hint opacity (faint path ghost).
    `params:` `{ path_source, num_circles, difficulty_level }`
 
 4. **array_bar_race** — sorting algorithm race (built), compound interest /
@@ -325,7 +319,7 @@ will hit the same collision — give it a qualified attribute name
 convention) from the start rather than rediscovering this.
 ## 9. Orchestrator (recipe → final video)
 
-Built as its own task, on top of the 19 finished engines. Lives under
+Built as its own task, on top of the 20 finished engines. Lives under
 `orchestrator/`; entry point is `orchestrator.pipeline.produce_video(recipe_path, output_path)`,
 also runnable directly as `python -m orchestrator <recipe.yaml> -o <output.mp4>`.
 
