@@ -385,23 +385,30 @@ a new YAML file per video. Entry point:
 not curated examples — and today's date by default).
 
 For each requested category, `batch/generate.py` copies its example
-recipe's `params` and common-block styling unchanged, then overrides
-`title`/`caption`/`fb_post_caption` with one entry from
-`recipes/variations.yaml` (a small per-category pool, at least 2 entries
-each — Section 10.2's "hook phrasing varies" checklist item, satisfied
-mechanically instead of by memory). Which variant is picked is
+recipe's common-block styling unchanged, then overrides `title`/
+`caption`/`fb_post_caption` — and optionally `params` too — with one
+entry from `recipes/variations.yaml` (a per-category pool, e.g. 2-5
+entries each — Section 10.2's "hook phrasing varies" checklist item,
+satisfied mechanically instead of by memory). Which variant is picked is
 deterministic from the requested date's day-of-year, so re-running for
 the same date is idempotent but different dates rotate through the pool.
 Generated recipes still need `music_track` filled in (or left `null`)
 before rendering, like any recipe.
 
-V1 scope: only the title/caption/fb_post_caption text layer rotates.
-`params` always comes from the category's example recipe unchanged —
-sampling valid random params per engine would need per-engine range/enum
-knowledge that's already encoded once in each engine's own
-`validate_params()`; duplicating it here wasn't worth the risk of the two
-drifting apart. Add more categories' variety by editing
-`recipes/variations.yaml` directly — no code changes needed.
+Two kinds of variant, both live in the same pool: a **text-only**
+variant (no `params` key) rotates hook phrasing on the category's
+existing topic — its `params` falls back to the example recipe's,
+unchanged. A **topic** variant declares its own `params`, a genuinely
+different configuration within the category (e.g. `puzzle_backtracking`'s
+n-queens or Rubik's-cube variants alongside its default Tower of Hanoi).
+Each topic variant's `params` is hand-written directly against that
+category's own `validate_params()` — not sampled or generated, since
+that would need duplicating per-engine range/enum knowledge that already
+lives once in each engine — and is caught by
+`tests/test_batch_generate.py`'s sweep if wrong (it validates every
+variant of every category, not just index 0). Add more variants — text
+or topic — by editing `recipes/variations.yaml` directly; no code
+changes needed.
 
 Tests: `tests/test_batch_generate.py`, including a sweep asserting every
 category in `engines/registry.py`'s `CATEGORY_TO_SCENE_CLASS` has both a
@@ -451,9 +458,11 @@ itself out of scope for engine-building work).
 
 `batch/` (see Section 9.1) mechanically covers the first checklist item —
 `python -m batch` rotates `title`/`caption`/`fb_post_caption` through a
-per-category variant pool instead of reusing one fixed set of hooks.
-Outro CTA rotation and music/SFX variation are still manual — `batch/`
-doesn't touch `params`, music selection, or SFX.
+per-category variant pool instead of reusing one fixed set of hooks, and
+its topic variants (a variant with its own `params`) double as topic
+variety within a category, not just phrasing variety. Outro CTA rotation
+and music/SFX variation are still manual — `batch/` doesn't touch music
+selection or SFX.
 
 ### 10.3 Growth loop
 

@@ -19,6 +19,14 @@ array_bar_race:
   - title: "Can You Predict The Winner?"
     caption: "Bubble sort: simple rule, slow climb"
     fb_post_caption: "7 numbers race to get sorted. Bubble sort is slow -- but it never fails. \U0001F422 #algorithms #sorting"
+  - title: "Divide, Sort, Repeat"
+    caption: "Quicksort: pick a pivot, split, and recurse"
+    fb_post_caption: "Quicksort in action: pick a pivot, split around it, repeat. Watch it fly. \u26A1 #algorithms #quicksort"
+    params: {race_type: "quick_sort", data_series: [8, 3, 9, 1, 6, 4, 7, 2], labels: null, speed: 1.0}
+  - title: "Why Compound Interest Feels Slow, Then Fast"
+    caption: "Same rate, different starting points -- watch the gap explode"
+    fb_post_caption: "Three savings accounts, three rates. Compound interest barely moves... until it doesn't. \U0001F4B0 #finance #math"
+    params: {race_type: "compound_interest", data_series: [{principal: 1000, rate: 0.05}, {principal: 800, rate: 0.08}, {principal: 1200, rate: 0.03}], labels: ["Savings A", "Savings B", "Savings C"], speed: 1.0}
 
 cellular_automata:
   - title: "One Rule, Every Generation"
@@ -27,6 +35,14 @@ cellular_automata:
   - title: "It's Alive. It's Just Math."
     caption: "No AI. No randomness. Just one rule, repeated."
     fb_post_caption: "A glider that just... keeps gliding. From one simple rule. \U0001F9EC #math #cellularautomata"
+  - title: "One Line, Endless Chaos"
+    caption: "Same simple rule, applied to itself, forever"
+    fb_post_caption: "Rule 30: one of the simplest rules in math, and it looks completely random. \U0001F300 #math #cellularautomata"
+    params: {ruleset: "rule_30", grid_size: 100, initial_state: "single_cell", generations: 100}
+  - title: "A Single Ant Builds A Highway"
+    caption: "Two rules. Total chaos. Then, out of nowhere, order."
+    fb_post_caption: "Langton's ant follows 2 rules and eventually builds a repeating highway. Nobody fully knows why. \U0001F41C #math #emergence"
+    params: {ruleset: "langtons_ant", grid_size: 80, initial_state: "default", generations: 150}
 
 game_theory:
   - title: "Only The Fittest Strategy Survives"
@@ -43,6 +59,10 @@ geometric_transformation:
   - title: "Rotate It. Flip It. Still The Same?"
     caption: "Area survives every rigid motion -- scaling is the only cheat"
     fb_post_caption: "Which transformations actually change this shape? Most don't. \U0001F300 #geometry #math"
+  - title: "How Many Ways Can You Move A Shape?"
+    caption: "Rotate, scale, reflect -- only one of these changes the area"
+    fb_post_caption: "Three transformations, one shape. Can you spot which one actually changes it? \U0001F300 #math #geometry"
+    params: {shape_source: "regular_polygon", transform_sequence: [{type: "rotate", angle: 60.0}, {type: "scale", factor: 1.5}, {type: "reflect", axis: 45.0}]}
 
 graph_network:
   - title: "Shortest Path, Step by Step"
@@ -51,6 +71,14 @@ graph_network:
   - title: "The Algorithm Never Guesses"
     caption: "Every step, provably the shortest so far"
     fb_post_caption: "Dijkstra's algorithm finding the shortest path -- and never backtracking. \U0001F5FA️ #dijkstra #algorithms"
+  - title: "Explore Everything, One Layer At A Time"
+    caption: "BFS never skips a layer -- that's the whole trick"
+    fb_post_caption: "Breadth-first search, spreading outward one ring at a time. \U0001F5FA\uFE0F #algorithms #bfs"
+    params: {graph_source: "grid", algorithm: "bfs", start_node: 0, end_node: 11}
+  - title: "How Few Colors Does A Map Need?"
+    caption: "Greedy coloring, no two neighbors ever match"
+    fb_post_caption: "Coloring a graph so connected nodes never share a color -- using as few colors as it can get away with. \U0001F3A8 #algorithms #graphtheory"
+    params: {graph_source: "random_geometric", algorithm: "graph_coloring", start_node: 0, end_node: 11}
 
 grid_cell_coloring:
   - title: "Hidden Order in Chaos"
@@ -59,6 +87,14 @@ grid_cell_coloring:
   - title: "Primes Aren't Actually Random"
     caption: "Spiral the integers. The primes line up."
     fb_post_caption: "This spiral is just counting numbers. The pattern is primes. \U0001F522 #math #primes"
+  - title: "Every Point Claims Its Territory"
+    caption: "Nearest seed wins every pixel"
+    fb_post_caption: "A Voronoi diagram: every pixel colored by whichever seed point is closest. \U0001F5FA\uFE0F #math #voronoi"
+    params: {rule_type: "voronoi", grid_size: 150, zoom_level: 1.0, color_map: "ocean"}
+  - title: "Zoom Into Infinity"
+    caption: "The boundary never gets simpler, no matter how far you zoom"
+    fb_post_caption: "The Mandelbrot set boundary: infinitely detailed, no matter how far in you go. \U0001F300 #math #mandelbrot #fractals"
+    params: {rule_type: "mandelbrot", grid_size: 200, zoom_level: 500.0, color_map: "fire"}
 
 monte_carlo_probability:
   - title: "Does It Converge?"
@@ -67,6 +103,14 @@ monte_carlo_probability:
   - title: "Switch Or Stay? Math Has An Answer."
     caption: "800 trials settle the debate"
     fb_post_caption: "The Monty Hall problem still breaks people's intuition. Here's proof it shouldn't. \U0001F6AA #montyhall #probability"
+  - title: "23 People, 50% Odds Two Share A Birthday"
+    caption: "Feels wrong. The math isn't."
+    fb_post_caption: "In a room of just 23 people, there's a coin-flip chance two share a birthday. Simulated 800 times to prove it. \U0001F382 #probability #math"
+    params: {trial_type: "birthday_paradox", num_trials: 800, seed: 0, target_value: 23}
+  - title: "Some Sums Are More Likely Than Others"
+    caption: "7 comes up more than any other roll -- here's why"
+    fb_post_caption: "Roll two dice enough times and the sums stop looking random. \U0001F3B2 #probability #math"
+    params: {trial_type: "dice_sum_convergence", num_trials: 800, seed: 0, target_value: 7}
 
 number_pattern:
   - title: "Numbers Hide a Pattern"
@@ -75,6 +119,14 @@ number_pattern:
   - title: "Pascal's Triangle Hides A Fractal"
     caption: "Even and odd numbers draw Sierpinski's triangle"
     fb_post_caption: "Color Pascal's triangle by parity. A fractal appears. \U0001F53A #math #pascalstriangle"
+  - title: "Pi Never Repeats. Watch It Not Repeat."
+    caption: "50 digits in, still no pattern"
+    fb_post_caption: "Coloring the digits of pi by value. No repeats, no pattern, just an infinite non-repeating decimal. \U0001F961 #math #pi"
+    params: {sequence_type: "pi_digits", length: 50, mapping_rule: "color_by_value"}
+  - title: "Times Tables Draw A Flower"
+    caption: "Connect n to 3n around a circle -- this is what you get"
+    fb_post_caption: "The times-3 table, drawn as lines around a circle of numbers. Didn't expect a flower. \U0001F338 #math #numbertheory"
+    params: {sequence_type: "times_table_circle", length: 200, mapping_rule: "times_3"}
 
 particle_physics_sim:
   - title: "Two Arms, Infinite Chaos."
@@ -83,6 +135,14 @@ particle_physics_sim:
   - title: "One Degree Changes Everything"
     caption: "Same physics, same start -- different chaos every time"
     fb_post_caption: "A double pendulum is fully deterministic and still unpredictable. \U0001F300 #chaostheory #physics"
+  - title: "Gravity, Simulated From Scratch"
+    caption: "No orbits programmed in. Just gravity, doing its thing."
+    fb_post_caption: "4 bodies, one force, zero scripted paths. Just Newton's law of gravitation, simulated. \U0001FA90 #physics #nbody"
+    params: {sim_type: "n_body_gravity", num_bodies: 4, initial_conditions: null, sim_duration: 6.0, seed: 0}
+  - title: "No Leader. Just Rules. Still A Flock."
+    caption: "Separation, alignment, cohesion -- that's the whole flock"
+    fb_post_caption: "20 birds, 3 rules each, no leader. Somehow it still flocks. \U0001F426 #physics #boids #emergence"
+    params: {sim_type: "boids", num_bodies: 20, initial_conditions: null, sim_duration: 6.0, seed: 0}
 
 pathfinding_maze:
   - title: "Finding The Way Out"
@@ -91,6 +151,10 @@ pathfinding_maze:
   - title: "A* Never Wastes A Step"
     caption: "It doesn't wander. It estimates."
     fb_post_caption: "A* solving a maze -- smarter than blind search. \U0001F9ED #astar #pathfinding"
+  - title: "Ants Don't Know The Way. They Find It Anyway."
+    caption: "No map. Just pheromone trails and time."
+    fb_post_caption: "Ant colony optimization: no single ant knows the path, but the colony finds it anyway. \U0001F41C #algorithms #antcolony"
+    params: {maze_source: "random_prim_maze", algorithm: "ant_colony", seed: 2}
 
 population_growth_model:
   - title: "The Rhythm Of A Population"
@@ -99,6 +163,14 @@ population_growth_model:
   - title: "Nobody Wins This Cycle"
     caption: "More prey feeds more predators feeds fewer prey -- forever"
     fb_post_caption: "Foxes and rabbits, locked in the same loop for 25 years straight. \U0001F98A\U0001F430 #ecology #math"
+  - title: "How An Outbreak Actually Spreads"
+    caption: "Susceptible, infected, recovered -- one curve each"
+    fb_post_caption: "The SIR model: how an outbreak rises, peaks, and burns out, all from 2 rate constants. \U0001F9A0 #math #epidemiology"
+    params: {model_type: "sir_epidemic", initial_populations: {S: 990.0, I: 10.0, R: 0.0}, rate_constants: {beta: 0.3, gamma: 0.1}, duration: 30.0}
+  - title: "Growth Always Hits A Ceiling"
+    caption: "Exponential growth is a lie past a certain point"
+    fb_post_caption: "Exponential growth looks unstoppable -- until you add a ceiling. That's logistic growth. \U0001F4C8 #math #ecology"
+    params: {model_type: "logistic_vs_exponential", initial_populations: {population: 10.0}, rate_constants: {growth_rate: 0.4, carrying_capacity: 500.0}, duration: 20.0}
 
 proof_without_words:
   - title: "A Square Proof"
@@ -107,6 +179,10 @@ proof_without_words:
   - title: "No Algebra. Just Watch."
     caption: "The squares rearrange themselves into proof"
     fb_post_caption: "The Pythagorean theorem, proven without a single equation. \U0001F4D0 #pythagoreantheorem #math"
+  - title: "A Circle's Area, Unrolled"
+    caption: "Cut it into rings, unroll them, and the formula appears"
+    fb_post_caption: "Where does pi times r squared actually come from? Unroll the circle and watch. \u25CB #math #geometry"
+    params: {proof_type: "circle_area_unwrapping"}
 
 puzzle_backtracking:
   - title: "Solved, One Step At A Time"
@@ -115,6 +191,14 @@ puzzle_backtracking:
   - title: "31 Moves. Zero Wasted."
     caption: "Every move follows from the one before it"
     fb_post_caption: "Recursion solving Tower of Hanoi -- and never second-guessing itself. \U0001F5FC #recursion #towerofhanoi"
+  - title: "8 Queens, Zero Attacks"
+    caption: "92 solutions exist. Backtracking finds one, fast."
+    fb_post_caption: "Placing 8 queens on a chessboard so none can attack another. Watch backtracking solve it live. \u265B #math #nqueens"
+    params: {puzzle_type: "n_queens", size: 8, seed: 0}
+  - title: "Scrambled. Then Reversed, Move By Move."
+    caption: "Every scramble has an exact undo"
+    fb_post_caption: "Reversing a scrambled cube, one move at a time -- no algorithm shortcuts, just undoing the scramble exactly. \U0001F9E9 #math #rubikscube"
+    params: {puzzle_type: "rubiks_cube", size: 2, seed: 1}
 
 recursive_lsystem:
   - title: "One Rule. Infinite Branches."
@@ -123,6 +207,10 @@ recursive_lsystem:
   - title: "This Tree Only Knows One Rule"
     caption: "Branch, repeat, branch again -- that's the whole recipe"
     fb_post_caption: "One branching rule, applied 8 times. This is what you get. \U0001F33F #fractals #math"
+  - title: "Remove Triangles Forever, Get A Fractal"
+    caption: "Cut out the middle, repeat, get infinity"
+    fb_post_caption: "Remove the middle triangle, then do it again to what's left. Forever. \U0001F53A #math #fractals #sierpinski"
+    params: {rule_type: "sierpinski_triangle", depth: 5, branch_angle: 25}
 
 statistical_distribution:
   - title: "Random Becomes Predictable"
@@ -131,6 +219,14 @@ statistical_distribution:
   - title: "Chaos In, Bell Curve Out"
     caption: "Every ball is random. The pile never is."
     fb_post_caption: "1000 random balls fall through pegs -- and draw a perfect curve. \U0001F3B2 #statistics #math"
+  - title: "Not Every Dice Roll Is Equally Likely"
+    caption: "1000 rolls later, the shape gives it away"
+    fb_post_caption: "Two dice, 1000 rolls, one very non-flat histogram. \U0001F3B2 #statistics #math"
+    params: {distribution_type: "dice_sum_histogram", num_trials: 1000, seed: 0}
+  - title: "Why Everything Becomes A Bell Curve Eventually"
+    caption: "Average enough random things and a bell curve appears"
+    fb_post_caption: "The Central Limit Theorem: almost anything averaged enough times becomes a bell curve. Watch it happen. \U0001F514 #statistics #math"
+    params: {distribution_type: "clt_demo", num_trials: 1000, seed: 0}
 
 strange_attractor_chaos:
   - title: "Order Hidden in Chaos"
@@ -139,6 +235,10 @@ strange_attractor_chaos:
   - title: "It Never Repeats. Ever."
     caption: "Three equations, infinite unrepeated paths"
     fb_post_caption: "The Lorenz attractor: deterministic, chaotic, and never once retraces itself. \U0001F98B #lorenzattractor #chaos"
+  - title: "One Number, One Rule, Total Chaos"
+    caption: "Same equation, wildly different behavior depending on one constant"
+    fb_post_caption: "The logistic map: one parameter, and the same simple equation goes from calm to total chaos. \U0001F98B #math #chaostheory"
+    params: {system_type: "logistic_map", initial_conditions: null, iterations: 600}
 
 tessellation_growth:
   - title: "One Shape, Endless Pattern"
@@ -147,6 +247,14 @@ tessellation_growth:
   - title: "A Pattern That Breaks The Rules"
     caption: "Never repeats, never overlaps, never runs out of room"
     fb_post_caption: "Penrose tiling: five-fold symmetry that shouldn't be possible in a tiling. Yet here it is. ⭐ #penrosetiling #math"
+  - title: "Why Bees Chose Hexagons"
+    caption: "No gaps, no overlaps, least wall for the space"
+    fb_post_caption: "Hexagons tile perfectly with zero wasted space. Bees figured this out first. \U0001F41D #math #hexagons"
+    params: {tile_type: "hex_tiling", symmetry_group: 6, fill_target: 0.85}
+  - title: "The Simplest Tiling Is Still Endless"
+    caption: "One square, repeated, never stops"
+    fb_post_caption: "The simplest possible tiling -- and it still fills infinite space without a single gap. \u25A2 #math #tessellation"
+    params: {tile_type: "square_tiling", symmetry_group: 4, fill_target: 0.9}
 
 tree_data_structure:
   - title: "Watch It Rebalance"
@@ -171,3 +279,15 @@ epicycle_fourier:
   - title: "Circles Within Circles Draw This"
     caption: "Every curve is just a sum of spinning circles"
     fb_post_caption: "Any closed shape can be drawn by circles spinning inside circles. Watch. ⭕ #epicycles #math"
+  - title: "Guess This One For Valentine's"
+    caption: "Every curve, drawn by circles spinning inside circles"
+    fb_post_caption: "Any shape -- even a heart -- can be drawn with nothing but spinning circles. \U0001F49B #math #fourierseries"
+    params: {path_source: "heart", num_circles: 20, difficulty_level: "medium"}
+  - title: "Even A House Is Just Circles"
+    caption: "Straight lines, drawn by things that only spin"
+    fb_post_caption: "Sharp corners, drawn entirely by circular motion. Math doesn't care that it looks impossible. \U0001F3E0 #math #epicycles"
+    params: {path_source: "house", num_circles: 12, difficulty_level: "easy"}
+  - title: "This Symbol Draws Itself Forever"
+    caption: "The infinity symbol, traced by its own Fourier series"
+    fb_post_caption: "Circles inside circles, drawing the symbol for infinity. Fitting. \u267E\uFE0F #math #fourierseries"
+    params: {path_source: "infinity", num_circles: 18, difficulty_level: "hard"}

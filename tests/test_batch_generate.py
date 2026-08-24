@@ -31,9 +31,17 @@ def test_generate_recipe_sets_fresh_id_and_date():
     assert recipe["status"] == "draft"
 
 
-def test_generate_recipe_keeps_template_params_unchanged():
+def test_generate_recipe_keeps_template_params_unchanged_when_variant_has_none():
     recipe = generate_recipe("puzzle_backtracking", variant_index=0, date=_A_DATE)
     assert recipe["params"] == {"puzzle_type": "tower_of_hanoi", "size": 5, "seed": 0}
+
+
+def test_generate_recipe_overrides_params_when_variant_declares_them():
+    variations = load_variations("puzzle_backtracking")
+    n_queens_index = next(i for i, v in enumerate(variations) if v.get("params", {}).get("puzzle_type") == "n_queens")
+    recipe = generate_recipe("puzzle_backtracking", variant_index=n_queens_index, date=_A_DATE)
+    assert recipe["params"]["puzzle_type"] == "n_queens"
+    assert recipe["params"] != {"puzzle_type": "tower_of_hanoi", "size": 5, "seed": 0}
 
 
 def test_generate_recipe_unknown_category_raises():
@@ -56,9 +64,18 @@ def test_every_registered_category_has_variations_and_a_template(category):
     generate_recipe(category, variant_index=0, date=_A_DATE)  # raises if no template recipe file exists
 
 
-@pytest.mark.parametrize("category", sorted(CATEGORY_TO_SCENE_CLASS))
-def test_generated_recipe_passes_orchestrator_validation(category):
-    recipe = generate_recipe(category, variant_index=0, date=_A_DATE)
+def _all_category_variant_pairs():
+    """(category, variant_index) for every variant of every registered
+    category -- not just index 0, since a variant's own `params` override
+    (a genuinely different topic, not just different text) is exactly
+    what could be wrong and needs its own validation pass.
+    """
+    return [(category, i) for category in sorted(CATEGORY_TO_SCENE_CLASS) for i in range(len(load_variations(category)))]
+
+
+@pytest.mark.parametrize(("category", "variant_index"), _all_category_variant_pairs(), ids=lambda v: str(v))
+def test_generated_recipe_passes_orchestrator_validation(category, variant_index):
+    recipe = generate_recipe(category, variant_index=variant_index, date=_A_DATE)
     with warnings.catch_warnings():
         warnings.simplefilter("ignore")  # style fields (font/color) are a known V1 orchestrator limitation, not this test's concern
         validate_recipe(recipe)  # no raise

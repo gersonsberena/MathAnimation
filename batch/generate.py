@@ -1,15 +1,18 @@
 """Generates ready-to-render recipe dicts by combining a category's
-curated example recipe (real, tested `params` + common-block styling)
-with rotated title/caption/fb_post_caption text from
-`recipes/variations.yaml` (README Section 10.2's "hook phrasing varies"
-checklist item).
+curated example recipe (common-block styling: background, resolution,
+safe zones, etc.) with one entry from `recipes/variations.yaml` --
+title/caption/fb_post_caption always come from there (README Section
+10.2's "hook phrasing varies" checklist item), and `params` comes from
+there too whenever a variant declares its own (a genuinely different
+topic within the category, e.g. n_queens vs. tower_of_hanoi for
+puzzle_backtracking), falling back to the example recipe's `params`
+otherwise (pure text-hook rotation on the same topic).
 
-V1 scope: only the creative/hook text layer rotates. `params` (the
-actual algorithm/simulation configuration) always comes from the
-category's example recipe unchanged -- sampling valid random params per
-engine would need per-engine range/enum knowledge already encoded in
-each engine's own `validate_params()`, which this module deliberately
-doesn't duplicate.
+Each variant's `params`, when present, is hand-written directly against
+that category's own `validate_params()` -- not sampled or generated --
+so adding a new topic variant means writing one `params` dict by hand
+and letting `tests/test_batch_generate.py`'s sweep catch any mistake
+(it validates every variant of every category, not just index 0).
 """
 
 import datetime
@@ -40,11 +43,13 @@ def _load_template_recipe(category: str) -> dict:
 
 
 def generate_recipe(category: str, variant_index: int, date: datetime.date) -> dict:
-    """Returns a new recipe dict for `category`: `params` and common-block
-    styling copied from its curated example recipe, but title/caption/
-    fb_post_caption swapped to variant `variant_index` from
-    recipes/variations.yaml (wrapping around if there are fewer variants
-    than `variant_index`), plus a fresh `id` and `date_created`.
+    """Returns a new recipe dict for `category`: common-block styling
+    copied from its curated example recipe, title/caption/fb_post_caption
+    always swapped to variant `variant_index` from recipes/variations.yaml
+    (wrapping around if there are fewer variants than `variant_index`),
+    and `params` swapped too if that variant declares its own (otherwise
+    the example recipe's `params` are kept unchanged), plus a fresh `id`
+    and `date_created`.
     """
     if category not in CATEGORY_TO_SCENE_CLASS:
         raise ValueError(f"unknown category {category!r}, must be one of {sorted(CATEGORY_TO_SCENE_CLASS)}")
@@ -57,6 +62,8 @@ def generate_recipe(category: str, variant_index: int, date: datetime.date) -> d
     recipe["title"] = variant["title"]
     recipe["caption"] = variant["caption"]
     recipe["fb_post_caption"] = variant["fb_post_caption"]
+    if "params" in variant:
+        recipe["params"] = variant["params"]
     recipe["id"] = f"{category}-{date.isoformat()}-v{picked_index}"
     recipe["date_created"] = date.isoformat()
     recipe["status"] = "draft"
